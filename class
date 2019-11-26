@@ -1,0 +1,27 @@
+package entities;
+
+public class Instituicao {
+	public String nome;
+	public String hrFunc;
+	private boolean integral;
+	private boolean noturno;
+	private Predio[] predio;
+	
+	public Instituicao(Predio[] p) {
+		predio = p;
+	}
+	
+	public boolean isIntegral() {
+		return integral;
+	}
+	public void setIntegral(boolean integral) {
+		this.integral = integral;
+	}
+	public boolean isNoturno() {
+		return noturno;
+	}
+	public void setNoturno(boolean noturno) {
+		this.noturno = noturno;
+	}
+
+}
