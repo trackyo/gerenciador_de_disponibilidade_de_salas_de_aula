@@ -6,9 +6,13 @@ public class Instituicao {
 	private boolean integral;
 	private boolean noturno;
 	private Predio[] predio;
+	private Aluno[] aluno;
+	private Professor[] professor;
+	private Disciplina[]disciplina;
+	
 	
 	public Instituicao(Predio[] p) {
-		predio = p;
+		setPredio(p);
 	}
 	
 	public boolean isIntegral() {
@@ -22,6 +26,14 @@ public class Instituicao {
 	}
 	public void setNoturno(boolean noturno) {
 		this.noturno = noturno;
+	}
+
+	public Predio[] getPredio() {
+		return predio;
+	}
+
+	public void setPredio(Predio[] predio) {
+		this.predio = predio;
 	}
 
 }
