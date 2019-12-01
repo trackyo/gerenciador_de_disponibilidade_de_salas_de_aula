@@ -1,34 +1,44 @@
-package entities;
+package service;
 
 import java.util.Scanner;
 
-public class Pessoa {
-	
-private String nome;
-
-private Long matricula;
-
-public String getNome() {
-	return nome;
-}
-void cadastrarnome() {
+public class Pessoa 
+{
+    private String nome;
+    private long matricula;
+    
+    void cadastrarnome() 
+    {
 	Scanner cn = new Scanner(System.in);
-	String nome ;
-	System.out.printf("informe o nme ");
+	System.out.printf("informe o nome ");
 	nome = cn.nextLine();
-}
-public void setNome(String nome) {
-	this.nome = nome;
-}
-
-public Long getMatricula() {
-	return matricula;
-}
-
-public void setMatricula(Long matricula) {
-	this.matricula = matricula;
-}
+    }
+    
+    void cadastrarmatricula() 
+    {
+	Scanner cn = new Scanner(System.in);
+	System.out.printf("informe a matricula ");
+	matricula = cn.nextLong();
+    }
 
 
+    public String getNome() 
+    {
+        return nome;
+    }
 
+    public void setNome(String nome) 
+    {
+        this.nome = nome;
+    }
+
+    public Long getMatricula() 
+    {
+        return matricula;
+    }
+
+    public void setMatricula(long matricula) 
+    {
+        this.matricula = matricula;
+    }
 }

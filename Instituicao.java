@@ -1,39 +1,33 @@
 package entities;
 
-public class Instituicao {
-	public String nome;
-	public String hrFunc;
-	private boolean integral;
-	private boolean noturno;
-	private Predio[] predio;
-	private Aluno[] aluno;
-	private Professor[] professor;
-	private Disciplina[]disciplina;
-	
-	
-	public Instituicao(Predio[] p) {
-		setPredio(p);
-	}
-	
-	public boolean isIntegral() {
-		return integral;
-	}
-	public void setIntegral(boolean integral) {
-		this.integral = integral;
-	}
-	public boolean isNoturno() {
-		return noturno;
-	}
-	public void setNoturno(boolean noturno) {
-		this.noturno = noturno;
-	}
+public class Instituicao 
+{
+    private String nome;
+    private Boolean integral;
+    private Boolean noturno;
 
-	public Predio[] getPredio() {
-		return predio;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setPredio(Predio[] predio) {
-		this.predio = predio;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
+    public Boolean getIntegral() {
+        return integral;
+    }
+
+    public void setIntegral(Boolean integral) {
+        this.integral = integral;
+    }
+
+    public Boolean getNoturno() {
+        return noturno;
+    }
+
+    public void setNoturno(Boolean noturno) {
+        this.noturno = noturno;
+    }
+    
 }
