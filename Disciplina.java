@@ -1,10 +1,23 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Disciplina 
 {
     private String nome;
     private long codigo;
     private String abordagem_pedagogica;
+    private ArrayList <Turma> turma = new ArrayList<Turma>();
+
+    public ArrayList<Turma> getTurma() 
+    {
+        return turma;
+    }
+
+    public void setTurma(ArrayList<Turma> turma) 
+    {
+        this.turma = turma;
+    }
 
     public String getNome() 
     {
