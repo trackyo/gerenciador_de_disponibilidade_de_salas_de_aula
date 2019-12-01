@@ -6,7 +6,7 @@ public class Laboratorio extends Sala
 {
     private int qtd_computadores;
     private int qtd_equipametos;
-    private ArrayList <String> tipo_equipamento = new ArrayList<String>();
+    private ArrayList <String> tipos_equipamentos = new ArrayList<String>();
 
     public int getQtd_computadores() 
     {
@@ -28,14 +28,14 @@ public class Laboratorio extends Sala
         this.qtd_equipametos = qtd_equipametos;
     }
 
-    public ArrayList<String> getTipo_equipamento() 
+    public ArrayList<String> getTipos_equipamentos() 
     {
-        return tipo_equipamento;
+        return tipos_equipamentos;
     }
 
-    public void setTipo_equipamento(ArrayList<String> tipo_equipamento) 
+    public void setTipos_equipamentos(ArrayList<String> tipos_equipamentos) 
     {
-        this.tipo_equipamento = tipo_equipamento;
+        this.tipos_equipamentos = tipos_equipamentos;
     }
 
 }

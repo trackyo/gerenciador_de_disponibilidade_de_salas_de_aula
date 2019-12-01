@@ -7,16 +7,16 @@ public class Disciplina
     private String nome;
     private long codigo;
     private String abordagem_pedagogica;
-    private ArrayList <Turma> turma = new ArrayList<Turma>();
+    private ArrayList <Turma> turmas = new ArrayList<Turma>();
 
-    public ArrayList<Turma> getTurma() 
+    public ArrayList<Turma> getTurmas() 
     {
-        return turma;
+        return turmas;
     }
 
-    public void setTurma(ArrayList<Turma> turma) 
+    public void setTurmas(ArrayList<Turma> turmas) 
     {
-        this.turma = turma;
+        this.turmas = turmas;
     }
 
     public String getNome() 

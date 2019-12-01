@@ -9,50 +9,49 @@ public class Instituicao
     private String nome;
     private Boolean integral;
     private Boolean noturno;
-    private ArrayList <Predio> predio = new ArrayList<Predio>();
-    private ArrayList <Aluno> aluno = new ArrayList<Aluno>();
-    private ArrayList <Professor> professor = new ArrayList<Professor>();
-    private ArrayList <Disciplina> disciplina = new ArrayList<Disciplina>();
+    private ArrayList <Predio> predios = new ArrayList<Predio>();
+    private ArrayList <Aluno> alunos = new ArrayList<Aluno>();
+    private ArrayList <Professor> professores = new ArrayList<Professor>();
+    private ArrayList <Disciplina> disciplinas = new ArrayList<Disciplina>();
 
-    public ArrayList<Aluno> getAluno() 
+    public ArrayList<Predio> getPredios() 
     {
-        return aluno;
+        return predios;
     }
 
-    public void setAluno(ArrayList<Aluno> aluno) 
+    public void setPredios(ArrayList<Predio> predios) 
     {
-        this.aluno = aluno;
+        this.predios = predios;
     }
 
-    public ArrayList<Professor> getProfessor() 
+    public ArrayList<Aluno> getAlunos() 
     {
-        return professor;
+        return alunos;
     }
 
-    public void setProfessor(ArrayList<Professor> professor) 
+    public void setAlunos(ArrayList<Aluno> alunos) 
     {
-        this.professor = professor;
+        this.alunos = alunos;
     }
 
-    public ArrayList<Disciplina> getDisciplina() 
+    public ArrayList<Professor> getProfessores() 
     {
-        return disciplina;
+        return professores;
     }
 
-    public void setDisciplina(ArrayList<Disciplina> disciplina) 
+    public void setProfessores(ArrayList<Professor> professores) 
     {
-        this.disciplina = disciplina;
-    }
-    
-
-    public ArrayList<Predio> getPredio() 
-    {
-        return predio;
+        this.professores = professores;
     }
 
-    public void setPredio(ArrayList<Predio> predio) 
+    public ArrayList<Disciplina> getDisciplinas() 
     {
-        this.predio = predio;
+        return disciplinas;
+    }
+
+    public void setDisciplinas(ArrayList<Disciplina> disciplinas) 
+    {
+        this.disciplinas = disciplinas;
     }
 
     public String getNome() 

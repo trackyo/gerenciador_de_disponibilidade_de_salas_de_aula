@@ -7,7 +7,7 @@ public class Predio
     private int qtd_salas;
     private String nome;
     private Instituicao instituicao;
-    private ArrayList <Sala> sala = new ArrayList<Sala>();
+    private ArrayList <Sala> salas = new ArrayList<Sala>();
     
     public Instituicao getInstituicao() 
     {
@@ -22,12 +22,12 @@ public class Predio
 
     public ArrayList<Sala> getSala() 
     {
-        return sala;
+        return salas;
     }
 
     public void setSala(ArrayList<Sala> sala) 
     {
-        this.sala = sala;
+        this.salas = sala;
     }
 
     public int getQtd_salas() 

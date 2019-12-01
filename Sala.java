@@ -10,8 +10,8 @@ public class Sala
     private boolean projetor;
     private boolean tv;
     private Predio predio;
-    private ArrayList <Ocupa> ocupa = new ArrayList<Ocupa>();
-    private ArrayList <Turma> turma = new ArrayList<Turma>();
+    private ArrayList <Ocupa> ocupacoes = new ArrayList<Ocupa>();
+    private ArrayList <Turma> turmas = new ArrayList<Turma>();
     
     public Predio getPredio() 
     {
@@ -25,22 +25,22 @@ public class Sala
    
     public ArrayList<Ocupa> getOcupa() 
     {
-        return ocupa;
+        return ocupacoes;
     }
 
     public void setOcupa(ArrayList<Ocupa> ocupa) 
     {
-        this.ocupa = ocupa;
+        this.ocupacoes = ocupa;
     }
 
     public ArrayList<Turma> getTurma() 
     {
-        return turma;
+        return turmas;
     }
 
     public void setTurma(ArrayList<Turma> turma) 
     {
-        this.turma = turma;
+        this.turmas = turma;
     }
 
     public int getIdSala() 

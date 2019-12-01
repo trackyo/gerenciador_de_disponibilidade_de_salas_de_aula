@@ -7,10 +7,31 @@ import service.Professor;
 public class Turma 
 {
     private int numAlunos;
-    private String horario;
+    private int numDiasSema;
     private Disciplina disciplina;
-    private ArrayList <Aluno> aluno = new ArrayList<Aluno>();
-    private ArrayList <Professor> professor =  new ArrayList<Professor>();
+    private ArrayList <Aluno> alunos = new ArrayList<Aluno>();
+    private Professor professor;
+    private ArrayList <Ocupa> ocupacoes = new ArrayList<Ocupa>();
+
+    public int getNumDiasSema() 
+    {
+        return numDiasSema;
+    }
+
+    public void setNumDiasSema(int numDiasSema) 
+    {
+        this.numDiasSema = numDiasSema;
+    }
+
+    public ArrayList<Ocupa> getOcupacoes() 
+    {
+        return ocupacoes;
+    }
+
+    public void setOcupacoes(ArrayList<Ocupa> ocupacoes) 
+    {
+        this.ocupacoes = ocupacoes;
+    }
     
     public Disciplina getDisciplina() 
     {
@@ -21,27 +42,27 @@ public class Turma
     {
         this.disciplina = disciplina;
     }
-    
-    public ArrayList<Aluno> getAluno() 
+
+    public ArrayList<Aluno> getAlunos() 
     {
-        return aluno;
+        return alunos;
     }
 
-    public void setAluno(ArrayList<Aluno> aluno) 
+    public void setAlunos(ArrayList<Aluno> alunos) 
     {
-        this.aluno = aluno;
+        this.alunos = alunos;
     }
 
-    public ArrayList<Professor> getProfessor() 
+    public Professor getProfessor() 
     {
         return professor;
     }
 
-    public void setProfessor(ArrayList<Professor> professor) 
+    public void setProfessor(Professor professor) 
     {
         this.professor = professor;
     }
-
+    
     public int getNumAlunos() 
     {
         return numAlunos;
@@ -52,13 +73,4 @@ public class Turma
         this.numAlunos = numAlunos;
     }
 
-    public String getHorario() 
-    {
-        return horario;
-    }
-
-    public void setHorario(String horario) 
-    {
-        this.horario = horario;
-    }
 }
