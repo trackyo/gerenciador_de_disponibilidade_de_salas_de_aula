@@ -5,7 +5,7 @@ import java.util.Date;
 public class Ocupa 
 {
     private String dia;
-    private String horario;
+    private int horario;
     private Turma turma;
     private Sala sala;
 
@@ -19,12 +19,12 @@ public class Ocupa
         this.dia = dia;
     }
 
-    public String getHorario() 
+    public int getHorario() 
     {
         return horario;
     }
 
-    public void setHorario(String horario) 
+    public void setHorario(int horario) 
     {
         this.horario = horario;
     }
