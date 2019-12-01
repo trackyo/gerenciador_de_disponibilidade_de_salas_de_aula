@@ -7,7 +7,7 @@ public class Pessoa
     private String nome;
     private long matricula;
     
-    void cadastrarnome() 
+/*    void cadastrarnome() 
     {
 	Scanner cn = new Scanner(System.in);
 	System.out.printf("informe o nome ");
@@ -19,8 +19,7 @@ public class Pessoa
 	Scanner cn = new Scanner(System.in);
 	System.out.printf("informe a matricula ");
 	matricula = cn.nextLong();
-    }
-
+    }*/
 
     public String getNome() 
     {

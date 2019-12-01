@@ -1,10 +1,12 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Laboratorio extends Sala
 {
     private int qtd_computadores;
     private int qtd_equipametos;
-    private String tipo_equipamento;
+    private ArrayList <String> tipo_equipamento = new ArrayList<String>();
 
     public int getQtd_computadores() 
     {
@@ -26,13 +28,14 @@ public class Laboratorio extends Sala
         this.qtd_equipametos = qtd_equipametos;
     }
 
-    public String getTipo_equipamento() 
+    public ArrayList<String> getTipo_equipamento() 
     {
         return tipo_equipamento;
     }
 
-    public void setTipo_equipamento(String tipo_equipamento) 
+    public void setTipo_equipamento(ArrayList<String> tipo_equipamento) 
     {
         this.tipo_equipamento = tipo_equipamento;
     }
+
 }

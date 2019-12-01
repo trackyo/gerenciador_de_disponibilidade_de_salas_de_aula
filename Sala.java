@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.ArrayList;
+
 public class Sala 
 {
     private int idSala;
@@ -7,6 +9,39 @@ public class Sala
     private boolean ar;
     private boolean projetor;
     private boolean tv;
+    private Predio predio;
+    private ArrayList <Ocupa> ocupa = new ArrayList<Ocupa>();
+    private ArrayList <Turma> turma = new ArrayList<Turma>();
+    
+    public Predio getPredio() 
+    {
+        return predio;
+    }
+
+    public void setPredio(Predio predio) 
+    {
+        this.predio = predio;
+    }
+   
+    public ArrayList<Ocupa> getOcupa() 
+    {
+        return ocupa;
+    }
+
+    public void setOcupa(ArrayList<Ocupa> ocupa) 
+    {
+        this.ocupa = ocupa;
+    }
+
+    public ArrayList<Turma> getTurma() 
+    {
+        return turma;
+    }
+
+    public void setTurma(ArrayList<Turma> turma) 
+    {
+        this.turma = turma;
+    }
 
     public int getIdSala() 
     {
