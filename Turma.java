@@ -6,6 +6,7 @@ import service.Professor;
 
 public class Turma 
 {
+    private String nome;
     private int numAlunos;
     private int numDiasSema;
     private Disciplina disciplina;
@@ -13,6 +14,14 @@ public class Turma
     private Professor professor;
     private ArrayList <Ocupa> ocupacoes = new ArrayList<Ocupa>();
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
     public int getNumDiasSema() 
     {
         return numDiasSema;

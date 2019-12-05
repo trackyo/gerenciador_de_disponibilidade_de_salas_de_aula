@@ -1,25 +1,24 @@
 package service;
 
+import entities.Instituicao;
 import java.util.Scanner;
 
 public class Pessoa 
 {
+    Instituicao Inst;
     private String nome;
     private long matricula;
-    
-/*    void cadastrarnome() 
+
+
+    public Instituicao getInst() 
     {
-	Scanner cn = new Scanner(System.in);
-	System.out.printf("informe o nome ");
-	nome = cn.nextLine();
+        return Inst;
     }
-    
-    void cadastrarmatricula() 
+
+    public void setInst(Instituicao Inst) 
     {
-	Scanner cn = new Scanner(System.in);
-	System.out.printf("informe a matricula ");
-	matricula = cn.nextLong();
-    }*/
+        this.Inst = Inst;
+    }
 
     public String getNome() 
     {

@@ -1,10 +1,40 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Predio 
 {
+
+    static void add(Predio get) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     private int qtd_salas;
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.nome);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Predio other = (Predio) obj;
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        return true;
+    }
     private String nome;
     private Instituicao instituicao;
     private ArrayList <Sala> salas = new ArrayList<Sala>();

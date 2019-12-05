@@ -226,7 +226,18 @@ public class Main
     void cadastroProfessor()
     {
         Professor P = new Professor();
+        String Inst;
         Scanner cn = new Scanner(System.in);
+        System.out.printf("informe a instituicao");
+        Inst = cn.nextLine();
+        for(int a=0; a<InstAux.size(); a++)
+        {
+            if(Inst.equals(InstAux.get(a).getNome()))
+            {
+                P.setInst(InstAux.get(a));
+                break;
+            }
+        }
         P.setNome(cn.nextLine());
         P.setMatricula(cn.nextLong());
         P.setEspecializacao(cn.nextLine());
@@ -237,7 +248,7 @@ public class Main
     void cadastroAluno()
     {
         Aluno A = new Aluno();
-        String modo, Disc, Turma;
+        String modo, Disc, Turma, Inst;
         int i=1;
         ArrayList <Turma> TurmaLocal = new ArrayList();
         Scanner cn = new Scanner(System.in);
@@ -247,6 +258,16 @@ public class Main
         A.setMatricula(cn.nextLong());
         System.out.printf("informe o curso");
         A.setCurso(cn.nextLine());
+        System.out.printf("informe a instituicao");
+        Inst = cn.nextLine();
+        for(int a=0; a<InstAux.size(); a++)
+        {
+            if(Inst.equals(InstAux.get(a).getNome()))
+            {
+                A.setInst(InstAux.get(a));
+                break;
+            }
+        }
         while(i<42)
         {
             System.out.printf("informe a disciplina");
