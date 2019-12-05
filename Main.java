@@ -72,10 +72,9 @@ public class Main
     
     void InstFinal()
     {
-       
         for(int a=0; a<InstAux.size(); a++)
         {
-            Instituicao I = new Instituicao(); 
+            Instituicao I = new Instituicao();
             for(int b=0; b<PredLista.size(); b++)
             {
                 ArrayList <Predio> PredioLocal = new ArrayList();
@@ -91,6 +90,42 @@ public class Main
                 I.setAlunos(alunoFim);
                 I.setPredios(PredioLocal);
                 InstFim.add(I);
+            }
+        }
+    }
+    
+    void SalaFinal()
+    {
+        
+    }
+    
+    void TurmaFinal()
+    {
+        
+    }
+    
+    void OcupaFinal()
+    {
+        
+    }
+    
+    void DisciFinal()
+    {
+        for(int a=0; a<DiscAux.size(); a++)
+        {
+            Disciplina D = new Disciplina();
+            for(int b=0; b<TurmaAux.size(); b++)
+            {
+                ArrayList<Turma> turmaLocal = new ArrayList();
+                if(TurmaAux.get(b).getDisciplina().getNome().equals(DiscAux.get(a).getNome()))
+                {
+                    turmaLocal.add(TurmaAux.get(b));
+                }            
+                D.setNome(DiscAux.get(a).getNome());
+                D.setCodigo(DiscAux.get(a).getCodigo());
+                D.setAbordagem_pedagogica(DiscAux.get(a).getAbordagem_pedagogica());
+                D.setTurmas(turmaLocal);
+                DiscFim.add(D);
             }
         }
     }
@@ -214,20 +249,19 @@ public class Main
         A.setCurso(cn.nextLine());
         while(i<42)
         {
-            //arrumar o disc fim por aux 
             System.out.printf("informe a disciplina");
             Disc = cn.nextLine();
-            for(int j=0; j<DiscFim.size();j++)
+            for(int j=0; j<DiscAux.size();j++)
             {
-                if(Disc.equals(DiscFim.get(j).getNome()))
+                if(Disc.equals(DiscAux.get(j).getNome()))
                 {
                     System.out.printf("informe a turma");
                     Turma = cn.nextLine();
-                    for(int k=0; k<DiscFim.get(j).getTurmas().size();k++)
+                    for(int k=0; k<DiscAux.get(j).getTurmas().size();k++)
                     {
-                        if(Disc.equals(DiscFim.get(j).getTurmas().get(k).getNome()))
+                        if(Disc.equals(DiscAux.get(j).getTurmas().get(k).getNome()))
                         {
-                            TurmaLocal.add(DiscFim.get(j).getTurmas().get(k));
+                            TurmaLocal.add(DiscAux.get(j).getTurmas().get(k));
                             break;
                         }
                     }
@@ -241,6 +275,7 @@ public class Main
                 break;
             }
         }
+        AlunoAux.add(A);
     }
     
     void cadastroTurma()
