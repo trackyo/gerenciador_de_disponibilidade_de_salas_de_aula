@@ -1,40 +1,15 @@
 package entities;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Predio 
 {
-
-    static void add(Predio get) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     private int qtd_salas;
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.nome);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Predio other = (Predio) obj;
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        return true;
-    }
     private String nome;
     private Instituicao instituicao;
     private ArrayList <Sala> salas = new ArrayList<Sala>();
@@ -78,5 +53,18 @@ public class Predio
     public void setNome(String nome) 
     {
         this.nome = nome;
+    }
+    
+    public void criaDiretPredio()
+    {
+        File Inst = new File("diretorio//inst//"+this.instituicao.getNome(), this.nome);
+        boolean jk = Inst.mkdir();
+        File arquivo = new File(Inst, this.nome+".txt");
+        try 
+        {
+            arquivo.createNewFile();
+        } catch (IOException ex) {
+            Logger.getLogger(Predio.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

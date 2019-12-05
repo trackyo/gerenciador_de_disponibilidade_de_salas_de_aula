@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Disciplina 
@@ -47,5 +48,11 @@ public class Disciplina
     public void setAbordagem_pedagogica(String abordagem_pedagogica) 
     {
         this.abordagem_pedagogica = abordagem_pedagogica;
+    }
+    
+    public void criaDiretPes()
+    {
+        File Insti = new File("diretorio//disc", this.nome);
+        boolean jk = Insti.mkdir();
     }
 }

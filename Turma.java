@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.File;
 import java.util.ArrayList;
 import service.Aluno;
 import service.Professor;
@@ -80,6 +81,12 @@ public class Turma
     public void setNumAlunos(int numAlunos) 
     {
         this.numAlunos = numAlunos;
+    }
+    
+        public void criaDiretPes()
+    {
+        File Insti = new File("diretorio//disc//"+this.disciplina.getNome(), this.nome);
+        boolean jk = Insti.mkdir();
     }
 
 }

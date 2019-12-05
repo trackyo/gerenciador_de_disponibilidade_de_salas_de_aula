@@ -1,5 +1,12 @@
 package entities;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import service.Aluno;
@@ -47,14 +54,21 @@ public class Main
         alunoFim = new ArrayList();
         OcupaFim = new ArrayList();
         
+        File diretorio = new File("diretorio");
+        boolean mk = diretorio.mkdir();
+        System.out.println("diretorio criado " + mk);
+        File Inst = new File(diretorio, "inst");
+        boolean jk = Inst.mkdir();
+        File Disc = new File(diretorio, "disc");
+        boolean ik = Disc.mkdir();
+         
         cadastroInst();
         
     }
     
     public static void main(String[] args)
     {      
-        //ArrayList<ArrayList> lista = new ArrayList<ArrayList>(); 
-        new Main();
+        new Main();  
     }
     
     void cadastroInst()

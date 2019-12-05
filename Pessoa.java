@@ -1,6 +1,7 @@
 package service;
 
 import entities.Instituicao;
+import java.io.File;
 import java.util.Scanner;
 
 public class Pessoa 
@@ -38,5 +39,23 @@ public class Pessoa
     public void setMatricula(long matricula) 
     {
         this.matricula = matricula;
+    }
+    
+    public void criaDiretPes()
+    {
+        File Insti = new File("diretorio//inst//"+this.Inst.getNome(), "pessoa");
+        boolean jk = Insti.mkdir();
+    }
+    
+    public void criaDiretAluno()
+    {
+        File Insti = new File("diretorio//inst//"+this.Inst.getNome()+"//pessoa", "aluno");
+        boolean jk = Insti.mkdir();
+    }
+    
+    public void criaDiretProf()
+    {
+        File Insti = new File("diretorio//inst//"+this.Inst.getNome()+"//pessoa", "professor");
+        boolean jk = Insti.mkdir();
     }
 }

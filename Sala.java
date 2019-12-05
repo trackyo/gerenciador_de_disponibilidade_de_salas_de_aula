@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Sala 
@@ -91,5 +92,12 @@ public class Sala
     public void setTv(boolean tv) 
     {
         this.tv = tv;
+    }
+    public void criaDiretAluno()
+    {
+        File Inst = new File("diretorio//inst//"+this.predio.getInstituicao().getNome()+"//"+this.predio.getNome(), "sala");
+        boolean jk = Inst.mkdir();
+        File sala = new File("diretorio//inst//"+this.predio.getInstituicao().getNome()+"//"+this.predio.getNome()+"//sala",Integer.toString(this.idSala));
+        boolean kk = sala.mkdir();
     }
 }
