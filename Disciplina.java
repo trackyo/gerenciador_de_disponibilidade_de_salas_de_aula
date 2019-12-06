@@ -85,7 +85,7 @@ public class Disciplina
     	  	else {
     	  		System.out.println("Erro! Digite um Nível válido!");
     	  	}
-    	  	System.out.println("O nivel da disciplina é " + nivel );
+    	  	System.out.println("O nivel da disciplina é " + getNivel());
     	      
     }
     
