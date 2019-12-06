@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Sala 
 {
-    private int idSala;
+    private int idSala;// numero da sala
     private int capacidade;
     private boolean ar;
     private boolean projetor;
@@ -93,11 +93,11 @@ public class Sala
     {
         this.tv = tv;
     }
-    public void criaDiretAluno()
+    public void criaDiretSala()
     {
-        File Inst = new File("diretorio//inst//"+this.predio.getInstituicao().getNome()+"//"+this.predio.getNome(), "sala");
+        File Inst = new File("diretorio//inst//"+this.predio.getInstituicao().getNome()+"//"+this.predio.getNome(), "sala");//cria um diretorio geral para sala
         boolean jk = Inst.mkdir();
-        File sala = new File("diretorio//inst//"+this.predio.getInstituicao().getNome()+"//"+this.predio.getNome()+"//sala",Integer.toString(this.idSala));
+        File sala = new File("diretorio//inst//"+this.predio.getInstituicao().getNome()+"//"+this.predio.getNome()+"//sala",Integer.toString(this.idSala));//cria uma pasta para cada sala
         boolean kk = sala.mkdir();
     }
 }

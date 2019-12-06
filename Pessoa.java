@@ -41,19 +41,19 @@ public class Pessoa
         this.matricula = matricula;
     }
     
-    public void criaDiretPes()
+    public void criaDiretPes()//cria uma pasta pessoa dentro de diretorio
     {
         File Insti = new File("diretorio//inst//"+this.Inst.getNome(), "pessoa");
         boolean jk = Insti.mkdir();
     }
     
-    public void criaDiretAluno()
+    public void criaDiretAluno()//cria uma pasta aluno dentro de pessoa
     {
         File Insti = new File("diretorio//inst//"+this.Inst.getNome()+"//pessoa", "aluno");
         boolean jk = Insti.mkdir();
     }
     
-    public void criaDiretProf()
+    public void criaDiretProf()//cria uma pasta prof dentro de pessoa
     {
         File Insti = new File("diretorio//inst//"+this.Inst.getNome()+"//pessoa", "professor");
         boolean jk = Insti.mkdir();

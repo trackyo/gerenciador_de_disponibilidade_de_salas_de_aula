@@ -50,7 +50,7 @@ public class Disciplina
         this.abordagem_pedagogica = abordagem_pedagogica;
     }
     
-    public void criaDiretPes()
+    public void criaDiretDisciplina()
     {
         File Insti = new File("diretorio//disc", this.nome);
         boolean jk = Insti.mkdir();
