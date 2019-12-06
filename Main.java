@@ -9,6 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import service.Aluno;
 import service.Professor;
 
@@ -32,6 +35,59 @@ public class Main // classe main auxiliar para mexer em elementos não estático
     ArrayList<Sala> SalaFim;
     ArrayList<Aluno> alunoFim;
     ArrayList<Ocupa> OcupaFim;
+    
+    public void LerArq()//função imcompleta
+    {
+        try 
+        {
+            BufferedReader arqListInst = new BufferedReader(new FileReader("diretorio//inst//lista.txt"));//procura e abre para leitura o elemeto da lista.txt
+            String linhaInst = "";
+            linhaInst = arqListInst.readLine();//string para ler linha
+            while(linhaInst != null)//laço para ler todo o arquivo
+            {
+                BufferedReader arqContInst = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//"+linhaInst+".txt"));//abre o arquivo que contém o objeto
+                String cont1Inst, cont2Inst, cont3Inst;//strings para contar linhas
+                cont1Inst = arqContInst.readLine();
+                cont2Inst = arqContInst.readLine();
+                cont3Inst = arqContInst.readLine();
+                
+                BufferedReader arqDadosInst = new BufferedReader(new FileReader(linhaInst+".txt"));//função para instanciar objetos
+                Instituicao I = new Instituicao();
+                I.setNome(arqDadosInst.readLine());
+                I.setIntegral(Boolean.parseBoolean(arqDadosInst.readLine()));
+                I.setNoturno(Boolean.parseBoolean(arqDadosInst.readLine()));
+                InstAux.add(I);//arraysList auxliar para gaurdar informação
+                
+                BufferedReader arqListPred = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//lista.txt"));//função para abrir a pasta dentro da pasta
+                String linhaPred = "";
+                linhaPred = arqListPred.readLine();
+                while(linhaPred != null)
+                {
+                    BufferedReader arqContPred = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//"+linhaPred+"//"+linhaPred+".txt"));
+                    String cont1Pred, cont2Pred, cont3Pred;
+                    cont1Pred = arqContPred.readLine();
+                    cont2Pred = arqContPred.readLine();
+                    cont3Pred = arqContPred.readLine();
+                
+                    BufferedReader arqDadosPred = new BufferedReader(new FileReader(linhaPred+".txt"));
+                    Predio Pred = new Predio();
+                    Pred.setInstituicao(I);
+                    Pred.setNome(cont2Pred);
+                    Pred.setQtd_salas(Integer.parseInt(cont3Inst));
+                    
+                }
+                
+            }
+        } 
+        catch (FileNotFoundException ex) 
+        {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) 
+        {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
     public Main()
     {   
@@ -81,10 +137,13 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         Inst.setIntegral(cn.nextBoolean());
         System.out.printf("Possue funfionamento Noturno?(true/false)");
         Inst.setNoturno(cn.nextBoolean());
-        InstAux.add(Inst);//adiciona dados parea a lista auxiliar
+        InstAux.add(Inst);
+        Inst.criaDiretInst();
+        Inst.Salvar();//cria um arquivo .txt com as informações fornecidas e mostra um balão na tela quando completo 
+        Inst.salvarLis();
     }
     
-    void InstFinal()//função incompleta para procurar elementos de um mesmo objeto em diferentes listas
+    /*void InstFinal()//função incompleta para procurar elementos de um mesmo objeto em diferentes listas
     {
         for(int a=0; a<InstAux.size(); a++)//ele pecorre toda a lista index por index, tal valor é fornecindo pelo .size()
         {
@@ -142,7 +201,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                 DiscFim.add(D);
             }
         }
-    }
+    }*/
 
     void cadastroPredioSalas(ArrayList<Instituicao> InstAux)//cadastra prédio e salas
     {
@@ -282,7 +341,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                 break;
             }
         }
-        while(i<42)//loop para adicionar quantas turmas foremnescessárias(como o i não incrementa ele sempre vai ser menor do que 42)
+        while(i<42)//loop para adicionar quantas turmas forem nescessárias(como o i não incrementa ele sempre vai ser menor do que 42)
         {
             System.out.printf("informe a disciplina");
             Disc = cn.nextLine();

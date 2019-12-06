@@ -1,7 +1,9 @@
 package entities;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -59,5 +61,27 @@ public class Predio
     {
         File Inst = new File("diretorio//inst//"+this.instituicao.getNome(), this.nome);//cocatena strings para poder criar o caminho
         boolean jk = Inst.mkdir();
+    }
+    
+    public String salvarLis()//cria um arquivo .txt com o nome de todos os objhetos para facilitar a busca em pastas
+    {
+            
+        try 
+        {
+        FileWriter lt = new FileWriter("diretorio//inst//"+this.instituicao.getNome()+"//lista.txt",true);
+        PrintWriter plt = new PrintWriter(lt);
+        plt.println(this.nome);
+                
+        plt.flush();
+        plt.close();//fecha a escrita
+        lt.close();//fecha o arquivo
+        }
+            
+        catch (IOException ex) 
+        {
+            Logger.getLogger(Predio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return "Lista salva";
     }
 }

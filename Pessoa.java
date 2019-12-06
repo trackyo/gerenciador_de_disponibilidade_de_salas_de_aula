@@ -2,7 +2,6 @@ package service;
 
 import entities.Instituicao;
 import java.io.File;
-import java.util.Scanner;
 
 public class Pessoa 
 {
@@ -45,17 +44,6 @@ public class Pessoa
     {
         File Insti = new File("diretorio//inst//"+this.Inst.getNome(), "pessoa");
         boolean jk = Insti.mkdir();
-    }
+    }   
     
-    public void criaDiretAluno()//cria uma pasta aluno dentro de pessoa
-    {
-        File Insti = new File("diretorio//inst//"+this.Inst.getNome()+"//pessoa", "aluno");
-        boolean jk = Insti.mkdir();
-    }
-    
-    public void criaDiretProf()//cria uma pasta prof dentro de pessoa
-    {
-        File Insti = new File("diretorio//inst//"+this.Inst.getNome()+"//pessoa", "professor");
-        boolean jk = Insti.mkdir();
-    }
 }
