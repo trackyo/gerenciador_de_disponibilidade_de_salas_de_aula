@@ -12,21 +12,21 @@ import java.util.Scanner;
 import service.Aluno;
 import service.Professor;
 
-public class Main 
+public class Main // classe main auxiliar para mexer em elementos não estáticos
 {
     ArrayList<Predio> PredLista;
     ArrayList<Professor> ProfLista;
     ArrayList<Laboratorio> LabLista;
     ArrayList<String> EquipLista;
     
-    ArrayList<Instituicao> InstAux;
-    ArrayList<Disciplina> DiscAux;
-    ArrayList<Turma> TurmaAux;
+    ArrayList<Instituicao> InstAux;//listas temporárias, para manter os objetos antes de serem salvos (provavelmente essa parte seja removida)
+    ArrayList<Disciplina> DiscAux;// tais mudanças serão realizadas pq provavelmente dessa forma atual dará um erro por modificação em tempo de execução
+    ArrayList<Turma> TurmaAux;// eu pretendo modificar as coisa pra que eu possa criar cada objeto pelos dados salvos em arquivos
     ArrayList<Sala> SalaAux;
     ArrayList<Aluno> AlunoAux;
     ArrayList<Ocupa> OcupaAux;
     
-    ArrayList<Instituicao> InstFim;
+    ArrayList<Instituicao> InstFim;//listas que serão salvas(possivelmente serão modificadas)
     ArrayList<Disciplina> DiscFim;
     ArrayList<Turma> TurmaFim;
     ArrayList<Sala> SalaFim;
@@ -35,7 +35,7 @@ public class Main
     
     public Main()
     {   
-        PredLista = new ArrayList();
+        PredLista = new ArrayList();//instanciando os arrayLists
         ProfLista = new ArrayList();
         LabLista = new ArrayList();
         EquipLista = new ArrayList();
@@ -54,10 +54,10 @@ public class Main
         alunoFim = new ArrayList();
         OcupaFim = new ArrayList();
         
-        File diretorio = new File("diretorio");
+        File diretorio = new File("diretorio");//cria uma pasta chamada diretorio para poder guardar os arquivos
         boolean mk = diretorio.mkdir();
-        System.out.println("diretorio criado " + mk);
-        File Inst = new File(diretorio, "inst");
+        System.out.println("diretorio criado " + mk);//confirma se o diretorio foi criado
+        File Inst = new File(diretorio, "inst");// criam duas pastas para separar os derivados de instituicao e os de disciplina
         boolean jk = Inst.mkdir();
         File Disc = new File(diretorio, "disc");
         boolean ik = Disc.mkdir();
@@ -66,12 +66,12 @@ public class Main
         
     }
     
-    public static void main(String[] args)
+    public static void main(String[] args)//classe main estática
     {      
-        new Main();  
+        new Main(); // declaração do metodo main 
     }
     
-    void cadastroInst()
+    void cadastroInst()//forma básica para cadastrar um arrayList de instituições
     {
         Instituicao Inst = new Instituicao();
         Scanner cn = new Scanner(System.in);
@@ -81,29 +81,29 @@ public class Main
         Inst.setIntegral(cn.nextBoolean());
         System.out.printf("Possue funfionamento Noturno?(true/false)");
         Inst.setNoturno(cn.nextBoolean());
-        InstAux.add(Inst);
+        InstAux.add(Inst);//adiciona dados parea a lista auxiliar
     }
     
-    void InstFinal()
+    void InstFinal()//função incompleta para procurar elementos de um mesmo objeto em diferentes listas
     {
-        for(int a=0; a<InstAux.size(); a++)
+        for(int a=0; a<InstAux.size(); a++)//ele pecorre toda a lista index por index, tal valor é fornecindo pelo .size()
         {
-            Instituicao I = new Instituicao();
-            for(int b=0; b<PredLista.size(); b++)
+            Instituicao I = new Instituicao();//objeto temporario de instituição (toda vez que rolar incremento ele cria um novo objeto)
+            for(int b=0; b<PredLista.size(); b++)//pecorre toda a lista de predios procurando os predios ligados a cada objeto
             {
-                ArrayList <Predio> PredioLocal = new ArrayList();
-                if(PredLista.get(b).getInstituicao().getNome().equals(InstAux.get(a).getNome()))
+                ArrayList <Predio> PredioLocal = new ArrayList();//arrayList temporario apenas para adicionar os predios de um mesmo objeto (depois reseta)
+                if(PredLista.get(b).getInstituicao().getNome().equals(InstAux.get(a).getNome()))//verifica se o nome dos objetos são iguais
                 {
-                    PredioLocal.add(PredLista.get(b));
+                    PredioLocal.add(PredLista.get(b));//adiciona ao array de predios
                 }
-                I.setNome(InstAux.get(a).getNome());
+                I.setNome(InstAux.get(a).getNome());//adiciona os objetos
                 I.setIntegral(InstAux.get(a).getIntegral());
                 I.setNoturno(InstAux.get(a).getNoturno());
                 I.setProfessores(ProfLista);
                 I.setDisciplinas(DiscFim);
                 I.setAlunos(alunoFim);
                 I.setPredios(PredioLocal);
-                InstFim.add(I);
+                InstFim.add(I);//adiciona ao arrayListFinal
             }
         }
     }
@@ -123,7 +123,7 @@ public class Main
         
     }
     
-    void DisciFinal()
+    void DisciFinal()//função incompleta
     {
         for(int a=0; a<DiscAux.size(); a++)
         {
@@ -144,20 +144,20 @@ public class Main
         }
     }
 
-    void cadastroPredioSalas(ArrayList<Instituicao> InstAux)
+    void cadastroPredioSalas(ArrayList<Instituicao> InstAux)//cadastra prédio e salas
     {
         int n;
         String Inst;
         Predio Pred = new Predio();
         Scanner cn = new Scanner(System.in);
-        ArrayList<Sala> SalaPred = new ArrayList();
+        ArrayList<Sala> SalaPred = new ArrayList();//arrayList temporário para salas
         System.out.printf("informe o nome da Instituicao ");
         Inst = cn.nextLine();
-        for(int i=0; i<InstAux.size();i++)
+        for(int i=0; i<InstAux.size();i++)//verifica se a instituição existe
         {
             if(Inst.equals(InstAux.get(i).getNome()))
             {
-                Pred.setInstituicao(InstAux.get(i));
+                Pred.setInstituicao(InstAux.get(i));//adiciona o objeto instituição para o objeto predio
                 break;
             }
         }
@@ -167,12 +167,12 @@ public class Main
         n = cn.nextInt();
         Pred.setQtd_salas(n);
         
-        for(int i=0; i<n;i++)
+        for(int i=0; i<n;i++)//laço para gerar vários objetos do tipo sala
         {
             int m;
             String select;
             System.out.printf("deseja adicionar sala ou labarotório? ");
-            select = cn.nextLine();
+            select = cn.nextLine();//seleciona o tipo de sala
             if("sala".equals(select))
             {
              Sala S = new Sala();
@@ -188,7 +188,7 @@ public class Main
              System.out.printf("informe se tem TV (true/false)");
              S.setTv(cn.nextBoolean());
              SalaAux.add(S);
-             SalaPred.add(S);
+             SalaPred.add(S);//adiciona objeto o para o Array de objetos temporarios
             }
             else
             {
@@ -220,7 +220,7 @@ public class Main
                LabLista.add(L);
             }  
         }
-        Pred.setSala(SalaPred);
+        Pred.setSala(SalaPred);//seta o vetor para o atributo da classe
         PredLista.add(Pred);
     }
     
@@ -264,7 +264,7 @@ public class Main
         Aluno A = new Aluno();
         String modo, Disc, Turma, Inst;
         int i=1;
-        ArrayList <Turma> TurmaLocal = new ArrayList();
+        ArrayList <Turma> TurmaLocal = new ArrayList();//array temporário
         Scanner cn = new Scanner(System.in);
         System.out.printf("informe o nome");
         A.setNome(cn.nextLine());
@@ -282,21 +282,21 @@ public class Main
                 break;
             }
         }
-        while(i<42)
+        while(i<42)//loop para adicionar quantas turmas foremnescessárias(como o i não incrementa ele sempre vai ser menor do que 42)
         {
             System.out.printf("informe a disciplina");
             Disc = cn.nextLine();
-            for(int j=0; j<DiscAux.size();j++)
+            for(int j=0; j<DiscAux.size();j++)//procura as disciplinas
             {
                 if(Disc.equals(DiscAux.get(j).getNome()))
                 {
                     System.out.printf("informe a turma");
                     Turma = cn.nextLine();
-                    for(int k=0; k<DiscAux.get(j).getTurmas().size();k++)
+                    for(int k=0; k<DiscAux.get(j).getTurmas().size();k++)//procura a turma
                     {
                         if(Disc.equals(DiscAux.get(j).getTurmas().get(k).getNome()))
                         {
-                            TurmaLocal.add(DiscAux.get(j).getTurmas().get(k));
+                            TurmaLocal.add(DiscAux.get(j).getTurmas().get(k));//adiciona a turma
                             break;
                         }
                     }
@@ -305,7 +305,7 @@ public class Main
             }
             System.out.printf("deseja adicionar mais matérias?");
             modo = cn.nextLine();
-            if ("s".equals(modo))
+            if ("n".equals(modo))//condição de saida do loop
             {
                 break;
             }
@@ -324,7 +324,7 @@ public class Main
         T.setNome(cn.nextLine());
         System.out.printf("informe o nome da disciplina ");
         Disc = cn.nextLine();
-        for(int i=0; i<DiscAux.size();i++)
+        for(int i=0; i<DiscAux.size();i++)//procura na lista de disciplinas
         {
             if(Disc.equals(DiscAux.get(i).getNome()))
             {
@@ -335,7 +335,7 @@ public class Main
         
         System.out.printf("informe o nome do professor");
         Prof = cn.nextLine();
-        for(int j=0; j<ProfLista.size();j++)
+        for(int j=0; j<ProfLista.size();j++)//procura na lista de professores
         {
             if(Prof.equals(ProfLista.get(j).getNome()))
             {
@@ -346,20 +346,21 @@ public class Main
         System.out.printf("informe o numer de aulos");
         T.setNumAlunos(cn.nextInt());
         System.out.printf("informe o numero de dias na semana");
-        n = cn.nextInt();
+        n = cn.nextInt();//a quatidade de ocupações é calculada pelo numero de dias que a aula ocorre em uma semana
         T.setNumDiasSema(n);
         
-        for (int k=0; k<n; k++)
+        for (int k=0; k<n; k++)//for para gerar várias ocupações
         {
             Ocupa O = new Ocupa();
             
             Predio = cn.nextLine();
-            for(int l=0; l<PredLista.size();l++)
+            for(int l=0; l<PredLista.size();l++)//procura um prédio
             {
                 if(Predio.equals(PredLista.get(l).getNome()))
                 {
+                    System.out.printf("informe a sala ");
                     Sala = cn.nextInt();
-                    for(int a=0; a<PredLista.get(l).getSala().size();a++)
+                    for(int a=0; a<PredLista.get(l).getSala().size();a++)//procura a sala
                     {
                         if(Sala == (PredLista.get(l).getSala().get(a).getIdSala()))
                         {
@@ -375,7 +376,7 @@ public class Main
             System.out.printf("informe o dia da semana dessa ocupacao");
             O.setDia(cn.nextLine());
             System.out.printf("informe o dia horario dessa ocupacao");
-            O.setHorario(cn.nextInt());
+            O.setHorario(cn.nextInt()); 
             OcupaAux.add(O);
             OcupaCont.add(O);
         }

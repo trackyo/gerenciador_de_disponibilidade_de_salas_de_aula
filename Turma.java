@@ -83,7 +83,7 @@ public class Turma
         this.numAlunos = numAlunos;
     }
     
-        public void criaDiretPes()
+        public void criaDiretTurma()
     {
         File Insti = new File("diretorio//disc//"+this.disciplina.getNome(), this.nome);
         boolean jk = Insti.mkdir();

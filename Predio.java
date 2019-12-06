@@ -11,7 +11,7 @@ public class Predio
 {
     private int qtd_salas;
     private String nome;
-    private Instituicao instituicao;
+    private Instituicao instituicao;//faz a associação com instituições
     private ArrayList <Sala> salas = new ArrayList<Sala>();
     
     public Instituicao getInstituicao() 
@@ -55,16 +55,9 @@ public class Predio
         this.nome = nome;
     }
     
-    public void criaDiretPredio()
+    public void criaDiretPredio()//cria uma pasta para cada objeto predio
     {
-        File Inst = new File("diretorio//inst//"+this.instituicao.getNome(), this.nome);
+        File Inst = new File("diretorio//inst//"+this.instituicao.getNome(), this.nome);//cocatena strings para poder criar o caminho
         boolean jk = Inst.mkdir();
-        File arquivo = new File(Inst, this.nome+".txt");
-        try 
-        {
-            arquivo.createNewFile();
-        } catch (IOException ex) {
-            Logger.getLogger(Predio.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 }

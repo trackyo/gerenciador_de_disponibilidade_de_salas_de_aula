@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Ocupa 
 {
-    private String dia;
+    private String dia;//informa o dia da semana em que a ocupação ocorre
     private int horario;
     private Turma turma;
     private Sala sala;
