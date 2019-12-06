@@ -96,15 +96,14 @@ public class Instituicao
         boolean jk = Inst.mkdir();
     }
     
-    public String salvarLis()//cria um arquivo .txt com o nome de todos os objhetos para facilitar a busca em pastas
+    public String salvarLis()//cria um arquivo .txt com o nome de todos os objetos para facilitar a busca em pastas
     {
             
         try 
         {
             FileWriter lt = new FileWriter("diretorio//inst//lista.txt",true);
             PrintWriter plt = new PrintWriter(lt);
-            plt.println(this.nome);
-                
+            plt.println(this.nome);  
             plt.flush();
             plt.close();//fecha a escrita
             lt.close();//fecha o arquivo
@@ -116,6 +115,28 @@ public class Instituicao
             }
 
             return "Lista salva";
+    }
+    
+    public String Salvar()//cria um arquivo .txt com as informações fornecidas
+    {
+       FileWriter fw;
+        try 
+        {
+            fw = new FileWriter("diretorio//inst//"+this.nome+"//"+this.nome+".txt");
+            PrintWriter pw = new PrintWriter(fw);
+            pw.println(this.nome);
+            pw.println(this.integral);
+            pw.println(this.noturno);
+            pw.flush();
+            pw.close();
+            fw.close();
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(Instituicao.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
+       return "Alteração feita";
+    }
     
 }

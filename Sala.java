@@ -1,7 +1,12 @@
 package entities;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Sala 
 {
@@ -100,4 +105,26 @@ public class Sala
         File sala = new File("diretorio//inst//"+this.predio.getInstituicao().getNome()+"//"+this.predio.getNome()+"//sala",Integer.toString(this.idSala));//cria uma pasta para cada sala
         boolean kk = sala.mkdir();
     }
+    
+    public String salvarLis()//cria um arquivo .txt com o nome de todos os objhetos para facilitar a busca em pastas
+    {
+            
+        try 
+        {
+            FileWriter lt = new FileWriter("diretorio//inst"+this.predio.getInstituicao().getNome()+""+this.predio.getNome()+"//sala//lista.txt",true);
+            PrintWriter plt = new PrintWriter(lt);
+            plt.println(this.idSala);
+                
+            plt.flush();
+            plt.close();//fecha a escrita
+            lt.close();//fecha o arquivo
+            }
+            
+            catch (IOException ex) 
+            {
+                Logger.getLogger(Sala.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            return "Lista salva";
+        }
 }

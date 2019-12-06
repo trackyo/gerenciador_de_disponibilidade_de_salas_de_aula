@@ -1,6 +1,7 @@
 package service;
 
 import entities.Turma;
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -27,5 +28,13 @@ public class Aluno extends Pessoa
     public void setCurso(String curso) 
     {
         this.curso = curso;
+    }
+    
+    public void criaDiretAluno()
+    {
+        File Insti = new File("diretorio//inst//"+this.Inst.getNome()+"//pessoa", "aluno");
+        boolean jk = Insti.mkdir();
+        File Al = new File(Insti, this.getNome());
+        boolean pf = Al.mkdir();
     }
 }
