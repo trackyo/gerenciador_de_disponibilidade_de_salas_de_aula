@@ -1,3 +1,4 @@
+
 package entities;
 
 import java.io.File;
@@ -14,7 +15,8 @@ public class Disciplina
     private long codigo;
     private String abordagem_pedagogica;
     private ArrayList <Turma> turmas = new ArrayList<Turma>();
-
+    private String nivel;
+    
     public ArrayList<Turma> getTurmas() 
     {
         return turmas;
@@ -55,13 +57,45 @@ public class Disciplina
         this.abordagem_pedagogica = abordagem_pedagogica;
     }
     
+    public void setNivel(String nv) {
+    	this.nivel = nv;	
+    } 
+    public String getNivel() {
+    	return this.nivel;
+    }
+    public void escolherNivel(String nv) {
+    	System.out.println("Defina o nivel acadêmico da disciplina");
+    	  	if(nv.equalsIgnoreCase("graduação")|| nv.equalsIgnoreCase("graduacao")) {
+    		setNivel("Graduação.");
+    		
+    	}
+    	  	if (nv.equalsIgnoreCase("extensão") || nv.equalsIgnoreCase("extensao")) {
+    			setNivel("Extensão.");
+    	  	
+    	  	}
+    	  	
+    	  	if (nv.equalsIgnoreCase("Lato Sensu")) {
+    	  		setNivel("Lato Sensu.");
+    }
+    	  	if(nv.equalsIgnoreCase("stricto sensu")) {
+        		setNivel("Stricto Sensu.");
+        		
+        	}
+    
+    	  	else {
+    	  		System.out.println("Erro! Digite um Nível válido!");
+    	  	}
+    	  	System.out.println("O nivel da disciplina é " + nivel );
+    	      
+    }
+    
     public void criaDiretDisciplina()
     {
         File Insti = new File("diretorio//disc", this.nome);
         boolean jk = Insti.mkdir();
     }
     
-    public String salvarLis()//cria um arquivo .txt com o nome de todos os objhetos para facilitar a busca em pastas
+    public String salvarLis()//cria um arquivo .txt com o nome de todos os objetos para facilitar a busca em pastas
     {
             
         try 
