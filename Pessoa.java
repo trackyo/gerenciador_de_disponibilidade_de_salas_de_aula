@@ -1,25 +1,25 @@
 package service;
 
+import entities.Instituicao;
+import java.io.File;
 import java.util.Scanner;
 
 public class Pessoa 
 {
+    Instituicao Inst;
     private String nome;
     private long matricula;
-    
-/*    void cadastrarnome() 
+
+
+    public Instituicao getInst() 
     {
-	Scanner cn = new Scanner(System.in);
-	System.out.printf("informe o nome ");
-	nome = cn.nextLine();
+        return Inst;
     }
-    
-    void cadastrarmatricula() 
+
+    public void setInst(Instituicao Inst) 
     {
-	Scanner cn = new Scanner(System.in);
-	System.out.printf("informe a matricula ");
-	matricula = cn.nextLong();
-    }*/
+        this.Inst = Inst;
+    }
 
     public String getNome() 
     {
@@ -39,5 +39,23 @@ public class Pessoa
     public void setMatricula(long matricula) 
     {
         this.matricula = matricula;
+    }
+    
+    public void criaDiretPes()
+    {
+        File Insti = new File("diretorio//inst//"+this.Inst.getNome(), "pessoa");
+        boolean jk = Insti.mkdir();
+    }
+    
+    public void criaDiretAluno()
+    {
+        File Insti = new File("diretorio//inst//"+this.Inst.getNome()+"//pessoa", "aluno");
+        boolean jk = Insti.mkdir();
+    }
+    
+    public void criaDiretProf()
+    {
+        File Insti = new File("diretorio//inst//"+this.Inst.getNome()+"//pessoa", "professor");
+        boolean jk = Insti.mkdir();
     }
 }

@@ -1,11 +1,13 @@
 package entities;
 
+import java.io.File;
 import java.util.ArrayList;
 import service.Aluno;
 import service.Professor;
 
 public class Turma 
 {
+    private String nome;
     private int numAlunos;
     private int numDiasSema;
     private Disciplina disciplina;
@@ -13,6 +15,14 @@ public class Turma
     private Professor professor;
     private ArrayList <Ocupa> ocupacoes = new ArrayList<Ocupa>();
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
     public int getNumDiasSema() 
     {
         return numDiasSema;
@@ -71,6 +81,12 @@ public class Turma
     public void setNumAlunos(int numAlunos) 
     {
         this.numAlunos = numAlunos;
+    }
+    
+        public void criaDiretPes()
+    {
+        File Insti = new File("diretorio//disc//"+this.disciplina.getNome(), this.nome);
+        boolean jk = Insti.mkdir();
     }
 
 }

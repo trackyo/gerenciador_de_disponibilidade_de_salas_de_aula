@@ -1,5 +1,6 @@
 package entities;
 
+import java.io.File;
 import java.util.ArrayList;
 import service.Aluno;
 import service.Professor;
@@ -82,6 +83,12 @@ public class Instituicao
     public void setNoturno(boolean noturno) 
     {
         this.noturno = noturno;
+    }
+    
+    public void criaDiretInst()
+    {
+        File Inst = new File("diretorio//inst", this.nome);
+        boolean jk = Inst.mkdir();
     }
     
 }
