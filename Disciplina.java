@@ -13,9 +13,8 @@ public class Disciplina
 {
     private String nome;
     private long codigo;
-    private String abordagem_pedagogica;
     private ArrayList <Turma> turmas = new ArrayList<Turma>();
-    private String nivel;
+    private String grau;
     
     public ArrayList<Turma> getTurmas() 
     {
@@ -47,45 +46,36 @@ public class Disciplina
         this.codigo = codigo;
     }
 
-    public String getAbordagem_pedagogica() 
-    {
-        return abordagem_pedagogica;
-    }
-
-    public void setAbordagem_pedagogica(String abordagem_pedagogica) 
-    {
-        this.abordagem_pedagogica = abordagem_pedagogica;
-    }
     
-    public void setNivel(String nv) {
-    	this.nivel = nv;	
+    public void setGrau(String gr) {
+    	this.grau = gr;	
     } 
-    public String getNivel() {
-    	return this.nivel;
+    public String getGrau() {
+    	return this.grau;
     }
-    public void escolherNivel(String nv) {
-    	System.out.println("Defina o nivel acadêmico da disciplina");
-    	  	if(nv.equalsIgnoreCase("graduação")|| nv.equalsIgnoreCase("graduacao")) {
-    		setNivel("Graduação.");
+    public void escolherGrau(String gr) {
+    	System.out.println("Defina o Grau acadêmico da disciplina");
+    	  	if(gr.equalsIgnoreCase("graduação")|| gr.equalsIgnoreCase("graduacao")) {
+    		setGrau("Graduação.");
     		
     	}
-    	  	if (nv.equalsIgnoreCase("extensão") || nv.equalsIgnoreCase("extensao")) {
-    			setNivel("Extensão.");
+    	  	if (gr.equalsIgnoreCase("extensão") || gr.equalsIgnoreCase("extensao")) {
+    			setGrau("Extensão.");
     	  	
     	  	}
     	  	
-    	  	if (nv.equalsIgnoreCase("Lato Sensu")) {
-    	  		setNivel("Lato Sensu.");
+    	  	if (gr.equalsIgnoreCase("Lato Sensu")) {
+    	  		setGrau("Lato Sensu.");
     }
-    	  	if(nv.equalsIgnoreCase("stricto sensu")) {
-        		setNivel("Stricto Sensu.");
+    	  	if(gr.equalsIgnoreCase("Stricto Sensu")) {
+        		setGrau("Stricto Sensu.");
         		
         	}
     
     	  	else {
-    	  		System.out.println("Erro! Digite um Nível válido!");
+    	  		System.out.println("Erro! Digite um Grau válido!");
     	  	}
-    	  	System.out.println("O nivel da disciplina é " + getNivel());
+    	  	System.out.println("O Grau da disciplina é " + getGrau());
     	      
     }
     
