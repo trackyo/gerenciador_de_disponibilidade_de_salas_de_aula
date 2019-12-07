@@ -13,12 +13,9 @@ import service.Professor;
 public class Instituicao 
 {
     private String nome;
-    private boolean integral;
-    private boolean noturno;
     private ArrayList <Predio> predios = new ArrayList<Predio>();
     private ArrayList <Aluno> alunos = new ArrayList<Aluno>();
     private ArrayList <Professor> professores = new ArrayList<Professor>();
-    private ArrayList <Disciplina> disciplinas = new ArrayList<Disciplina>();
 
     public ArrayList<Predio> getPredios() 
     {
@@ -50,16 +47,6 @@ public class Instituicao
         this.professores = professores;
     }
 
-    public ArrayList<Disciplina> getDisciplinas() 
-    {
-        return disciplinas;
-    }
-
-    public void setDisciplinas(ArrayList<Disciplina> disciplinas) 
-    {
-        this.disciplinas = disciplinas;
-    }
-
     public String getNome() 
     {
         return nome;
@@ -68,26 +55,6 @@ public class Instituicao
     public void setNome(String nome) 
     {
         this.nome = nome;
-    }
-
-    public boolean getIntegral() 
-    {
-        return integral;
-    }
-
-    public void setIntegral(boolean integral) 
-    {
-        this.integral = integral;
-    }
-
-    public boolean getNoturno() 
-    {
-        return noturno;
-    }
-
-    public void setNoturno(boolean noturno) 
-    {
-        this.noturno = noturno;
     }
     
     public void criaDiretInst()//cria uma pasta para todo novo objeto instituição drento da pasta diretório
@@ -103,7 +70,7 @@ public class Instituicao
         {
             FileWriter lt = new FileWriter("diretorio//inst//lista.txt",true);
             PrintWriter plt = new PrintWriter(lt);
-            plt.println(this.nome);  
+            plt.println(this.nome);
             plt.flush();
             plt.close();//fecha a escrita
             lt.close();//fecha o arquivo
@@ -119,14 +86,11 @@ public class Instituicao
     
     public String Salvar()//cria um arquivo .txt com as informações fornecidas
     {
-       FileWriter fw;
         try 
         {
-            fw = new FileWriter("diretorio//inst//"+this.nome+"//"+this.nome+".txt");
+            FileWriter fw = new FileWriter("diretorio//inst//"+this.nome+"//"+this.nome+".txt");
             PrintWriter pw = new PrintWriter(fw);
             pw.println(this.nome);
-            pw.println(this.integral);
-            pw.println(this.noturno);
             pw.flush();
             pw.close();
             fw.close();

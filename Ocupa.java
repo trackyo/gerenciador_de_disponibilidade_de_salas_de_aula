@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -66,12 +67,47 @@ public class Ocupa
         boolean jk = Insti.mkdir();
     }
     
+    public String salvarNomeArq()
+    {
+        try 
+        {
+            FileWriter ltT = new FileWriter("diretorio//disc//"+this.turma.getDisciplina().getNome()+"//"+this.turma.getNome()+"//ocupa//lista.txt",true);
+            PrintWriter pltT = new PrintWriter(ltT);
+            pltT.println(Integer.toString(this.getSala().getIdSala())+"_"+this.getDia()+"_"+Integer.toString(this.getHorario()));
+            pltT.flush();
+            pltT.close();
+            ltT.close();
+            
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(Ocupa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try 
+        {
+            FileWriter ltS = new FileWriter("diretorio//inst//"+this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//"+Integer.toString(this.sala.getIdSala())+"//ocupa//lista.txt",true);
+            PrintWriter pltS = new PrintWriter(ltS);
+            pltS.println(this.getTurma().getNome()+"_"+this.getDia()+"_"+Integer.toString(this.getHorario()));
+            pltS.flush();
+            pltS.close();
+            ltS.close();
+            
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(Ocupa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return "Lista Salva";
+    }
+    
     public String salvarLisSala()
     {
             
         try 
         {
-        FileWriter lt = new FileWriter("diretorio//inst//"+this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//"+Integer.toString(this.sala.getIdSala())+"//ocupa//lista.txt",true);
+        FileWriter lt = new FileWriter("diretorio//inst//"+this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//"+Integer.toString(this.sala.getIdSala())+"//ocupa//listaS.txt",true);
         PrintWriter plt = new PrintWriter(lt);
         plt.println(this.turma.getDisciplina().getNome()+"//"+this.turma.getNome());
                 
@@ -93,7 +129,7 @@ public class Ocupa
             
         try 
         {
-        FileWriter lt = new FileWriter("diretorio//disc//"+this.turma.getDisciplina().getNome()+"//"+this.turma.getNome()+"//ocupa//lista.txt",true);
+        FileWriter lt = new FileWriter("diretorio//disc//"+this.turma.getDisciplina().getNome()+"//"+this.turma.getNome()+"//ocupa//listaT.txt",true);
         PrintWriter plt = new PrintWriter(lt);
         plt.println(this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//"+Integer.toString(this.sala.getIdSala()));
                 
@@ -108,6 +144,35 @@ public class Ocupa
         }
 
         return "Lista salva";
-    }
+    }  
     
+    public String Salvar()
+    {
+        try 
+        {
+            FileWriter fwT = new FileWriter("diretorio//disc//"+this.turma.getDisciplina().getNome()+"//"+this.turma.getNome()+"//ocupa//"+this.getTurma().getNome()+"_"+this.getDia()+"_"+Integer.toString(this.getHorario())+".txt",true);
+        } 
+        catch (IOException ex)
+        {
+            Logger.getLogger(Ocupa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try 
+        {
+            FileWriter fwS = new FileWriter("diretorio//inst"+this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//"+Integer.toString(this.sala.getIdSala())+"//ocupa//"+this.getTurma().getNome()+"_"+this.getDia()+"_"+Integer.toString(this.getHorario())+".txt",true);
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(Ocupa.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        return "Alteração feita";
+    }
+  
+    public Ocupa cadOcupa(Turma T, ArrayList<Sala> SalaLocal)
+    {
+        
+        return this;
+    }
 }
+    

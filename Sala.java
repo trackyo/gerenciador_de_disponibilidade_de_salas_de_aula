@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -111,20 +112,66 @@ public class Sala
             
         try 
         {
-            FileWriter lt = new FileWriter("diretorio//inst"+this.predio.getInstituicao().getNome()+""+this.predio.getNome()+"//sala//lista.txt",true);
+            FileWriter lt = new FileWriter("diretorio//inst//"+this.predio.getInstituicao().getNome()+"//"+this.predio.getNome()+"//sala//lista.txt",true);
             PrintWriter plt = new PrintWriter(lt);
-            plt.println(this.idSala);
-                
+            plt.println(this.idSala);    
             plt.flush();
             plt.close();//fecha a escrita
             lt.close();//fecha o arquivo
-            }
+        }
             
-            catch (IOException ex) 
-            {
+        catch (IOException ex) 
+        {
                 Logger.getLogger(Sala.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        }
 
             return "Lista salva";
+    }
+    
+    public String Salvar()
+    {
+        
+        try 
+        {
+            FileWriter fw = new FileWriter("diretorio//inst//"+this.predio.getInstituicao().getNome()+"//"+this.predio.getNome()+"//sala//"+Integer.toString(this.idSala)+"//"+Integer.toString(this.idSala)+".txt");
+            PrintWriter pw = new PrintWriter(fw);
+            pw.println(this.predio.getNome());
+            pw.println(this.idSala);
+            pw.println(this.capacidade);
+            pw.println(this.ar);
+            pw.println(this.projetor);
+            pw.println(this.tv);
+            pw.flush();
+            pw.close();
+            fw.close();
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(Sala.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
+        return "Alteração feita";
+    }
+    
+    public Sala cadSala(Predio Pred)
+    {
+        Scanner cn = new Scanner(System.in);
+        this.setPredio(Pred);
+        System.out.printf("informe o número da sala ");
+        this.setIdSala(cn.nextInt());
+        System.out.printf("informe a capacidade ");
+        this.setCapacidade(cn.nextInt());
+        System.out.printf("informe se tem arcondicionado (true/false)");
+        this.setAr(cn.nextBoolean());
+        System.out.printf("informe se tem projetor (true/false)");
+        this.setProjetor(cn.nextBoolean());
+        System.out.printf("informe se tem TV (true/false)");
+        this.setTv(cn.nextBoolean());
+        this.criaDiretSala();
+        this.Salvar();
+        this.salvarLis();
+        
+        return this;
+    }
 }

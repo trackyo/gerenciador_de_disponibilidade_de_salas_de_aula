@@ -46,16 +46,12 @@ public class Main // classe main auxiliar para mexer em elementos não estático
             while(linhaInst != null)//laço para ler todo o arquivo
             {
                 BufferedReader arqContInst = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//"+linhaInst+".txt"));//abre o arquivo que contém o objeto
-                String cont1Inst, cont2Inst, cont3Inst;//strings para contar linhas
+                String cont1Inst;//strings para contar linhas
                 cont1Inst = arqContInst.readLine();
-                cont2Inst = arqContInst.readLine();
-                cont3Inst = arqContInst.readLine();
                 
                 BufferedReader arqDadosInst = new BufferedReader(new FileReader(linhaInst+".txt"));//função para instanciar objetos
                 Instituicao I = new Instituicao();
                 I.setNome(arqDadosInst.readLine());
-                I.setIntegral(Boolean.parseBoolean(arqDadosInst.readLine()));
-                I.setNoturno(Boolean.parseBoolean(arqDadosInst.readLine()));
                 InstAux.add(I);//arraysList auxliar para gaurdar informação
                 
                 BufferedReader arqListPred = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//lista.txt"));//função para abrir a pasta dentro da pasta
@@ -73,7 +69,6 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                     Predio Pred = new Predio();
                     Pred.setInstituicao(I);
                     Pred.setNome(cont2Pred);
-                    Pred.setQtd_salas(Integer.parseInt(cont3Inst));
                     
                 }
                 
@@ -127,176 +122,128 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         new Main(); // declaração do metodo main 
     }
     
-    void cadastroInst()//forma básica para cadastrar um arrayList de instituições
-    {
+    void cadastroInst()//cadastra instituições
+    {//primeiro a ser cadastrado
         Instituicao Inst = new Instituicao();
+        int a;
+        ArrayList<Predio> PredioLocal = new ArrayList();
         Scanner cn = new Scanner(System.in);
 	System.out.printf("informe o nome ");
         Inst.setNome(cn.nextLine());
-        System.out.printf("Possue funfionamento integral?(true/false)");
-        Inst.setIntegral(cn.nextBoolean());
-        System.out.printf("Possue funfionamento Noturno?(true/false)");
-        Inst.setNoturno(cn.nextBoolean());
-        InstAux.add(Inst);
         Inst.criaDiretInst();
         Inst.Salvar();//cria um arquivo .txt com as informações fornecidas e mostra um balão na tela quando completo 
         Inst.salvarLis();
-    }
-    
-    /*void InstFinal()//função incompleta para procurar elementos de um mesmo objeto em diferentes listas
-    {
-        for(int a=0; a<InstAux.size(); a++)//ele pecorre toda a lista index por index, tal valor é fornecindo pelo .size()
+        System.out.printf("informe o numero de predios ");
+        a = cn.nextInt();
+        for(int b=0; b<a; b++)
         {
-            Instituicao I = new Instituicao();//objeto temporario de instituição (toda vez que rolar incremento ele cria um novo objeto)
-            for(int b=0; b<PredLista.size(); b++)//pecorre toda a lista de predios procurando os predios ligados a cada objeto
+            Predio Pred = new Predio();
+            PredioLocal.add(Pred.cadPred(Inst));
+            PredLista.add(Pred.cadPred(Inst));
+            
+        }
+        for(int c=0; c<PredioLocal.size(); c++)
+        {
+            for(int d=0; d<PredioLocal.get(c).getSala().size(); d++)
             {
-                ArrayList <Predio> PredioLocal = new ArrayList();//arrayList temporario apenas para adicionar os predios de um mesmo objeto (depois reseta)
-                if(PredLista.get(b).getInstituicao().getNome().equals(InstAux.get(a).getNome()))//verifica se o nome dos objetos são iguais
-                {
-                    PredioLocal.add(PredLista.get(b));//adiciona ao array de predios
-                }
-                I.setNome(InstAux.get(a).getNome());//adiciona os objetos
-                I.setIntegral(InstAux.get(a).getIntegral());
-                I.setNoturno(InstAux.get(a).getNoturno());
-                I.setProfessores(ProfLista);
-                I.setDisciplinas(DiscFim);
-                I.setAlunos(alunoFim);
-                I.setPredios(PredioLocal);
-                InstFim.add(I);//adiciona ao arrayListFinal
+                SalaFim.add(PredioLocal.get(c).getSala().get(d));
             }
         }
-    }
-    
-    void SalaFinal()
-    {
-        
-    }
-    
-    void TurmaFinal()
-    {
-        
-    }
-    
-    void OcupaFinal()
-    {
-        
-    }
-    
-    void DisciFinal()//função incompleta
-    {
-        for(int a=0; a<DiscAux.size(); a++)
-        {
-            Disciplina D = new Disciplina();
-            for(int b=0; b<TurmaAux.size(); b++)
-            {
-                ArrayList<Turma> turmaLocal = new ArrayList();
-                if(TurmaAux.get(b).getDisciplina().getNome().equals(DiscAux.get(a).getNome()))
-                {
-                    turmaLocal.add(TurmaAux.get(b));
-                }            
-                D.setNome(DiscAux.get(a).getNome());
-                D.setCodigo(DiscAux.get(a).getCodigo());
-                D.setAbordagem_pedagogica(DiscAux.get(a).getAbordagem_pedagogica());
-                D.setTurmas(turmaLocal);
-                DiscFim.add(D);
-            }
-        }
-    }*/
+        Inst.setPredios(PredioLocal);
+        InstFim.add(Inst);
+    } 
 
-    void cadastroPredioSalas(ArrayList<Instituicao> InstAux)//cadastra prédio e salas
+    void cadastroPredio()//cadastra apenas prédio e salas
     {
         int n;
         String Inst;
         Predio Pred = new Predio();
         Scanner cn = new Scanner(System.in);
-        ArrayList<Sala> SalaPred = new ArrayList();//arrayList temporário para salas
         System.out.printf("informe o nome da Instituicao ");
         Inst = cn.nextLine();
-        for(int i=0; i<InstAux.size();i++)//verifica se a instituição existe
+        for(int i=0; i<InstFim.size();i++)//verifica se a instituição existe
         {
-            if(Inst.equals(InstAux.get(i).getNome()))
+            if(Inst.equals(InstFim.get(i).getNome()))
             {
-                Pred.setInstituicao(InstAux.get(i));//adiciona o objeto instituição para o objeto predio
+                InstFim.get(i).getPredios().add(Pred.cadPred(InstFim.get(i)));
+                PredLista.add(Pred.cadPred(InstFim.get(i)));
+                for(int j=0;j<Pred.cadPred(InstFim.get(i)).getSala().size(); j++)
+                {
+                    SalaFim.add(Pred.cadPred(InstFim.get(i)).getSala().get(i));    
+                }
+                
                 break;
             }
         }
-        System.out.printf("informe o nome do prédio ");
-        Pred.setNome(cn.nextLine());
-        System.out.printf("informe o numero de salas ");
-        n = cn.nextInt();
-        Pred.setQtd_salas(n);
         
-        for(int i=0; i<n;i++)//laço para gerar vários objetos do tipo sala
-        {
-            int m;
-            String select;
-            System.out.printf("deseja adicionar sala ou labarotório? ");
-            select = cn.nextLine();//seleciona o tipo de sala
-            if("sala".equals(select))
-            {
-             Sala S = new Sala();
-             S.setPredio(Pred);
-             System.out.printf("informe o número de salas ");
-             S.setIdSala(cn.nextInt());
-             System.out.printf("informe a capacidade ");
-             S.setCapacidade(cn.nextInt());
-             System.out.printf("informe se tem arcondicionado (true/false)");
-             S.setAr(cn.nextBoolean());
-             System.out.printf("informe se tem projetor (true/false)");
-             S.setProjetor(cn.nextBoolean());
-             System.out.printf("informe se tem TV (true/false)");
-             S.setTv(cn.nextBoolean());
-             SalaAux.add(S);
-             SalaPred.add(S);//adiciona objeto o para o Array de objetos temporarios
-            }
-            else
-            {
-               Laboratorio L = new Laboratorio();
-               L.setPredio(Pred);
-               System.out.printf("informe o número de salas ");
-               L.setIdSala(cn.nextInt());
-               System.out.printf("informe a capacidade ");
-               L.setCapacidade(cn.nextInt());
-               System.out.printf("informe se tem arcondicionado (true/false)");
-               L.setAr(cn.nextBoolean());
-               System.out.printf("informe se tem projetor (true/false)");
-               L.setProjetor(cn.nextBoolean());
-               System.out.printf("informe se tem TV (true/false)");
-               L.setTv(cn.nextBoolean());
-               System.out.printf("informe a quantidade de computadores");
-               L.setQtd_computadores(cn.nextInt());
-               System.out.printf("informe a quantidade de equipamentos");
-               m = cn.nextInt();
-               L.setQtd_equipametos(m);
-               for (int j=0; j<m; j++)
-               {
-                   System.out.printf("informe o tipo de equipamento");
-                   EquipLista.add(cn.nextLine());
-               }
-               L.setTipos_equipamentos(EquipLista);
-               SalaAux.add(L);
-               SalaPred.add(L);
-               LabLista.add(L);
-            }  
-        }
-        Pred.setSala(SalaPred);//seta o vetor para o atributo da classe
-        PredLista.add(Pred);
     }
     
-    void cadastroDiciplina()
+    void cadastroSala()//cadastra apenas salas
+    {
+        int n;
+        String Pred;
+        Sala S = new Sala();
+        Scanner cn = new Scanner(System.in);
+        System.out.printf("informe o nome do Predio ");
+        Pred = cn.nextLine();
+        for(int i=0; i<PredLista.size();i++)//verifica se a instituição existe
+        {
+            if(Pred.equals(PredLista.get(i).getNome()))
+            {
+                PredLista.get(i).getSala().add(S.cadSala(PredLista.get(i)));
+                SalaFim.add(S.cadSala(PredLista.get(i)));//depois criar uma função para abrir o arquivo e modificar a quantidade de salas do predio
+                for(int j=0; j<InstFim.size(); j++)
+                {
+                    for(int k=0; k<InstFim.get(j).getPredios().size(); k++)
+                    {
+                        if(InstFim.get(i).getPredios().get(k).getNome().equals(Pred))
+                        {
+                            InstFim.get(i).getPredios().get(k).getSala().add(S.cadSala(PredLista.get(i)));
+                        }
+                    }
+                }
+                break;
+            }
+        }
+        
+    }        
+    
+    void cadastroDiciplina()// terceiro a ser cadastrado
     {
         Disciplina D = new Disciplina();
+        int a;
+        String prof;
         Scanner cn = new Scanner(System.in);
+        ArrayList <Turma> TurmaLocal = new ArrayList();
         System.out.printf("informe o nome da disciplina ");
         D.setNome(cn.nextLine());
         System.out.printf("informe o código ");
         D.setCodigo(cn.nextInt());
         System.out.printf("informe a abordagem pedagógica ");
         D.setAbordagem_pedagogica(cn.nextLine());
-        DiscAux.add(D);
+        System.out.printf("informe o nume de turmas ");
+        a = cn.nextInt();
+        for(int i=0; i<a; i++)
+        {
+            Turma T = new Turma();
+            System.out.printf("informe o nome do professor ");
+            prof = cn.nextLine();
+            for(int j=0; j<ProfLista.size(); j++)
+            {
+                if(prof.equals(ProfLista.get(j).getNome()))
+                {
+                    TurmaLocal.add(T.cadTurma(D, ProfLista.get(j), SalaFim));
+                    TurmaFim.add(T.cadTurma(D, ProfLista.get(j), SalaFim));
+                    break;
+                }
+            }
+            
+        }
+        D.setTurmas(TurmaLocal);
+        DiscFim.add(D);
     }
     
-    void cadastroProfessor()
+    void cadastroProfessor()//segundo a ser cadastrado
     {
         Professor P = new Professor();
         String Inst;
@@ -318,7 +265,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         ProfLista.add(P);
     }
     
-    void cadastroAluno()
+    void cadastroAluno()//ultimo a ser cadastrado
     {
         Aluno A = new Aluno();
         String modo, Disc, Turma, Inst;

@@ -82,4 +82,25 @@ public class Disciplina
 
         return "Lista salva";
     }
+    
+    public String Salvar()
+    {
+        try 
+        {
+            FileWriter fw = new FileWriter("diretorio//disc"+this.nome+"//"+this.nome+".txt",true);
+            PrintWriter pw = new PrintWriter(fw);
+            pw.println(this.nome);
+            pw.println(this.codigo);
+            pw.println(this.abordagem_pedagogica);
+            pw.flush();
+            pw.close();
+            fw.close();
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(Disciplina.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return "Alteração feita";
+    }
 }
