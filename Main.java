@@ -33,7 +33,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
     ArrayList<Disciplina> DiscFim;
     ArrayList<Turma> TurmaFim;
     ArrayList<Sala> SalaFim;
-    ArrayList<Aluno> alunoFim;
+    ArrayList<Aluno> AlunoFim;
     ArrayList<Ocupa> OcupaFim;
     
     public void LerArq()//função imcompleta
@@ -84,6 +84,20 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         
     }
     
+    public static void menu()
+    {
+        System.out.println("\tCadastro");
+        System.out.println("0. Fim");
+        System.out.println("1. Instituicao");
+        System.out.println("2. Predio");
+        System.out.println("3. Sala");
+        System.out.println("4. Professor");
+        System.out.println("5. Disciplina");
+        System.out.println("6. Turma");
+        System.out.println("7. Aluno");
+        System.out.println("Opcao: ");
+    }
+    
     public Main()
     {   
         PredLista = new ArrayList();//instanciando os arrayLists
@@ -102,7 +116,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         DiscFim = new ArrayList();
         TurmaFim = new ArrayList();
         SalaFim = new ArrayList();
-        alunoFim = new ArrayList();
+        AlunoFim = new ArrayList();
         OcupaFim = new ArrayList();
         
         File diretorio = new File("diretorio");//cria uma pasta chamada diretorio para poder guardar os arquivos
@@ -111,9 +125,48 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         File Inst = new File(diretorio, "inst");// criam duas pastas para separar os derivados de instituicao e os de disciplina
         boolean jk = Inst.mkdir();
         File Disc = new File(diretorio, "disc");
-        boolean ik = Disc.mkdir();
-         
-        cadastroInst();
+        boolean ik = Disc.mkdir(); 
+        
+        int opcao;
+        Scanner entrada = new Scanner(System.in);
+
+        do{
+            menu();
+            opcao = entrada.nextInt();
+
+            switch(opcao){
+            case 1:
+                cadastroInst();
+                break;
+
+            case 2:
+                cadastroPredio();
+                break;
+
+            case 3:
+                cadastroSala();
+                break;
+
+            case 4:
+                cadastroProfessor();
+                break;
+                
+            case 5:
+                cadastroDiciplina();
+                break;
+                
+            case 6:
+                cadastroTurma();
+                break;
+                
+            case 7:
+                cadastroAluno();
+                break;
+
+            default:
+                System.out.println("Opção inválida.");
+            }
+        } while(opcao != 0);
         
     }
     
@@ -122,7 +175,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         new Main(); // declaração do metodo main 
     }
     
-    void cadastroInst()//cadastra instituições
+    public void cadastroInst()//cadastra instituições
     {//primeiro a ser cadastrado
         Instituicao Inst = new Instituicao();
         int a;
@@ -153,7 +206,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         InstFim.add(Inst);
     } 
 
-    void cadastroPredio()//cadastra apenas prédio e salas
+    public void cadastroPredio()//cadastra apenas prédio e salas
     {
         int n;
         String Inst;
@@ -169,7 +222,8 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                 PredLista.add(Pred.cadPred(InstFim.get(i)));
                 for(int j=0;j<Pred.cadPred(InstFim.get(i)).getSala().size(); j++)
                 {
-                    SalaFim.add(Pred.cadPred(InstFim.get(i)).getSala().get(i));    
+                    SalaFim.add(Pred.cadPred(InstFim.get(i)).getSala().get(i));
+                    InstFim.get(i).Salvar();
                 }
                 
                 break;
@@ -178,7 +232,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         
     }
     
-    void cadastroSala()//cadastra apenas salas
+    public void cadastroSala()//cadastra apenas salas
     {
         int n;
         String Pred;
@@ -199,6 +253,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                         if(InstFim.get(i).getPredios().get(k).getNome().equals(Pred))
                         {
                             InstFim.get(i).getPredios().get(k).getSala().add(S.cadSala(PredLista.get(i)));
+                            InstFim.get(i).Salvar();
                         }
                     }
                 }
@@ -208,7 +263,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         
     }        
     
-    void cadastroDiciplina()// terceiro a ser cadastrado
+    public void cadastroDiciplina()// terceiro a ser cadastrado
     {
         Disciplina D = new Disciplina();
         int a;
@@ -221,7 +276,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         D.setCodigo(cn.nextInt());
         System.out.printf("informe a abordagem pedagógica ");
         D.setAbordagem_pedagogica(cn.nextLine());
-        System.out.printf("informe o nume de turmas ");
+        System.out.printf("informe o numero de turmas ");
         a = cn.nextInt();
         for(int i=0; i<a; i++)
         {
@@ -234,6 +289,25 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                 {
                     TurmaLocal.add(T.cadTurma(D, ProfLista.get(j), SalaFim));
                     TurmaFim.add(T.cadTurma(D, ProfLista.get(j), SalaFim));
+                    ProfLista.get(j).setTurma(T.cadTurma(D, ProfLista.get(j), SalaFim));
+                    ProfLista.get(j).Salvar();
+                    for(int b=0; b<SalaFim.size(); b++)
+                    {
+                        for(int c=0; c<TurmaLocal.get(TurmaLocal.size()-1).getOcupacoes().size(); c++)
+                        {
+                            if(SalaFim.get(b).getIdSala() == (TurmaLocal.get(TurmaLocal.size()-1).getOcupacoes().get(c).getSala().getIdSala()))
+                            {
+                                SalaFim.get(b).getOcupa().add(TurmaLocal.get(TurmaLocal.size()-1).getOcupacoes().get(c));
+                                for(int d=0; d<PredLista.size(); d++)
+                                {
+                                    if(SalaFim.get(b).getPredio().getNome().equals(PredLista.get(d).getInstituicao().getNome()))
+                                    {
+                                        //depois terminar a função pra atualizar as listas
+                                    }
+                                }
+                            }
+                        }
+                    }
                     break;
                 }
             }
@@ -243,7 +317,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         DiscFim.add(D);
     }
     
-    void cadastroProfessor()//segundo a ser cadastrado
+    public void cadastroProfessor()//segundo a ser cadastrado
     {
         Professor P = new Professor();
         String Inst;
@@ -261,14 +335,16 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         P.setNome(cn.nextLine());
         P.setMatricula(cn.nextLong());
         P.setEspecializacao(cn.nextLine());
-        P.setSalario(cn.nextFloat());
+        P.criaDiretProf();
+        P.salvarLisProf();
+        P.Salvar();
         ProfLista.add(P);
     }
     
-    void cadastroAluno()//ultimo a ser cadastrado
+    public void cadastroAluno()//ultimo a ser cadastrado
     {
         Aluno A = new Aluno();
-        String modo, Disc, Turma, Inst;
+        String modo, Disc, turma, Inst;
         int i=1;
         ArrayList <Turma> TurmaLocal = new ArrayList();//array temporário
         Scanner cn = new Scanner(System.in);
@@ -288,21 +364,26 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                 break;
             }
         }
-        while(i<42)//loop para adicionar quantas turmas forem nescessárias(como o i não incrementa ele sempre vai ser menor do que 42)
+        A.criaDiretAluno();
+        A.criarDiretTurma();
+        do//loop para adicionar quantas turmas forem nescessárias(como o i não incrementa ele sempre vai ser menor do que 42)
         {
             System.out.printf("informe a disciplina");
             Disc = cn.nextLine();
-            for(int j=0; j<DiscAux.size();j++)//procura as disciplinas
+            for(int j=0; j<DiscFim.size();j++)//procura as disciplinas
             {
-                if(Disc.equals(DiscAux.get(j).getNome()))
+                if(Disc.equals(DiscFim.get(j).getNome()))
                 {
-                    System.out.printf("informe a turma");
-                    Turma = cn.nextLine();
-                    for(int k=0; k<DiscAux.get(j).getTurmas().size();k++)//procura a turma
+                    System.out.printf("informe a turma ");
+                    turma = cn.nextLine();
+                    for(int k=0; k<DiscFim.get(j).getTurmas().size();k++)//procura a turma
                     {
-                        if(Disc.equals(DiscAux.get(j).getTurmas().get(k).getNome()))
+                        if(turma.equals(DiscFim.get(j).getTurmas().get(k).getNome()))
                         {
-                            TurmaLocal.add(DiscAux.get(j).getTurmas().get(k));//adiciona a turma
+                            DiscFim.get(j).getTurmas().get(k).getAlunos().add(A);
+                            TurmaLocal.add(DiscFim.get(j).getTurmas().get(k));//adiciona a turma
+                            A.salvaLisTurma(DiscFim.get(j).getTurmas().get(k));
+                            A.SalvarTurma(DiscFim.get(j).getTurmas().get(k));
                             break;
                         }
                     }
@@ -313,80 +394,52 @@ public class Main // classe main auxiliar para mexer em elementos não estático
             modo = cn.nextLine();
             if ("n".equals(modo))//condição de saida do loop
             {
-                break;
+                i=42;
             }
-        }
-        AlunoAux.add(A);
+        }while(i<42);
+        A.setTurmas(TurmaLocal);
+        A.salvaLisAluno();
+        A.Salvar();
+        AlunoFim.add(A);
     }
     
-    void cadastroTurma()
+    public void cadastroTurma()
     {
         int n, Sala;
-        String Prof, Disc, Predio;
+        String Prof, Disc;
         Turma T = new Turma();
         ArrayList<Ocupa> OcupaCont = new ArrayList();
         Scanner cn = new Scanner(System.in); 
-        System.out.printf("informe o nome da turma ");
-        T.setNome(cn.nextLine());
         System.out.printf("informe o nome da disciplina ");
         Disc = cn.nextLine();
-        for(int i=0; i<DiscAux.size();i++)//procura na lista de disciplinas
+        for(int i=0; i<DiscFim.size();i++)//procura na lista de disciplinas
         {
-            if(Disc.equals(DiscAux.get(i).getNome()))
+            if(Disc.equals(DiscFim.get(i).getNome()))
             {
-                T.setDisciplina(DiscAux.get(i));
-                break;
-            }
-        }
-        
-        System.out.printf("informe o nome do professor");
-        Prof = cn.nextLine();
-        for(int j=0; j<ProfLista.size();j++)//procura na lista de professores
-        {
-            if(Prof.equals(ProfLista.get(j).getNome()))
-            {
-                T.setProfessor(ProfLista.get(j));
-                break;
-            }
-        }
-        System.out.printf("informe o numer de aulos");
-        T.setNumAlunos(cn.nextInt());
-        System.out.printf("informe o numero de dias na semana");
-        n = cn.nextInt();//a quatidade de ocupações é calculada pelo numero de dias que a aula ocorre em uma semana
-        T.setNumDiasSema(n);
-        
-        for (int k=0; k<n; k++)//for para gerar várias ocupações
-        {
-            Ocupa O = new Ocupa();
-            
-            Predio = cn.nextLine();
-            for(int l=0; l<PredLista.size();l++)//procura um prédio
-            {
-                if(Predio.equals(PredLista.get(l).getNome()))
+                System.out.printf("informe o nome do professor");
+                Prof = cn.nextLine();
+                for(int j=0; j<ProfLista.size();j++)//procura na lista de professores
                 {
-                    System.out.printf("informe a sala ");
-                    Sala = cn.nextInt();
-                    for(int a=0; a<PredLista.get(l).getSala().size();a++)//procura a sala
+                    if(Prof.equals(ProfLista.get(j).getNome()))
                     {
-                        if(Sala == (PredLista.get(l).getSala().get(a).getIdSala()))
+                        DiscFim.get(i).getTurmas().add(T.cadTurma(DiscFim.get(i), ProfLista.get(j), SalaFim));
+                        TurmaFim.add(T.cadTurma(DiscFim.get(i), ProfLista.get(j), SalaFim));
+                        for(int b=0; b<SalaFim.size(); b++)
                         {
-                            O.setSala(PredLista.get(l).getSala().get(a));
-                            break;
+                            for(int c=0; c<TurmaFim.get(TurmaFim.size()-1).getOcupacoes().size(); c++)
+                            {
+                                if(SalaFim.get(b).equals(TurmaFim.get(TurmaFim.size()-1).getOcupacoes().get(c).getSala()))
+                                {
+                                    SalaFim.get(b).getOcupa().add(TurmaFim.get(TurmaFim.size()-1).getOcupacoes().get(c));
+                                }
+                            }
                         }
-                    }
-                    break;
+                        break;
+                    }   
                 }
+                break;
             }
-            
-            O.setTurma(T);
-            System.out.printf("informe o dia da semana dessa ocupacao");
-            O.setDia(cn.nextLine());
-            System.out.printf("informe o dia horario dessa ocupacao");
-            O.setHorario(cn.nextInt()); 
-            OcupaAux.add(O);
-            OcupaCont.add(O);
         }
-        T.setOcupacoes(OcupaCont);
-        TurmaAux.add(T);
+        
     }
 }

@@ -188,8 +188,10 @@ public class Turma
     
     public Turma cadTurma(Disciplina D, Professor P, ArrayList<Sala> SalaLocal)//completar com as partes de alunos
     {
-        int n;
+        int n, a=0;
+        Sala sala;
         Scanner cn = new Scanner(System.in);
+        ArrayList <Ocupa> OcupaLocal = new ArrayList();
         this.setDisciplina(D);
         this.setProfessor(P);
         System.out.printf("informe o número de alunos ");
@@ -204,9 +206,43 @@ public class Turma
         this.setNumDiasSema(n);
         for (int i=0; i<n; i++)
         {
-            Ocupa O = new Ocupa();
+            do
+            {
+              Ocupa O = new Ocupa();
+              O.cadOcupa(this, SalaLocal);
+              sala = O.cadOcupa(this, SalaLocal).getSala();
+              if(! sala.getOcupa().contains(O.cadOcupa(this, SalaLocal).getDia()))
+              {
+                if(! sala.getOcupa().contains(O.cadOcupa(this, SalaLocal).getHorario()))  
+                {
+                    OcupaLocal.add(O.cadOcupa(this, SalaLocal));
+                    O.cadOcupa(this, SalaLocal).criaDiretOcupaSala();
+                    O.cadOcupa(this, SalaLocal).criaDiretOcupaTurma();
+                    O.cadOcupa(this, SalaLocal).salvarNomeArq();
+                    O.cadOcupa(this, SalaLocal).salvarLisSala();
+                    O.cadOcupa(this, SalaLocal).salvarLisTurma();
+                    O.cadOcupa(this, SalaLocal).Salvar();
+                    a=42;
+                }
+                else
+                {
+                    System.out.printf("Ocupacao invalida ");
+                }
+                
+              }
+              else
+              {
+                System.out.printf("Ocupacao invalida ");
+              }
+              
+            }while(a<42);    
         }
-        
+        this.setOcupacoes(OcupaLocal);
+        this.criaDiretTurmaDisc();
+        this.criaDiretTurmaProf();
+        this.salvarLisDisc();
+        this.salvarLisProf();
+        this.Salvar();
         return this;
     }
     

@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 public class Professor extends Pessoa
 {
     private String especializacao;
-    private float salario;
     private Turma turma;
 
     public Turma getTurma() 
@@ -35,16 +34,6 @@ public class Professor extends Pessoa
         this.especializacao = especializacao;
     }
 
-    public Float getSalario() 
-    {
-        return salario;
-    }
-
-    public void setSalario(float salario) 
-    {
-        this.salario = salario;
-    }
-    
     public void criaDiretProf()
     {
         File Insti = new File("diretorio//inst//"+this.Inst.getNome()+"//pessoa", "professor");
@@ -73,5 +62,27 @@ public class Professor extends Pessoa
         }
 
         return "Lista salva";
+    }
+    
+    public String Salvar()
+    {
+        try 
+        {
+            FileWriter fw = new FileWriter("diretorio//inst//"+this.Inst.getNome()+"//pessoa//professor//"+this.getNome()+"//"+this.getNome()+".txt");
+            PrintWriter pw = new PrintWriter(fw);
+            pw.println(this.Inst);
+            pw.println(this.getNome());
+            pw.println(this.getMatricula());
+            pw.println(this.especializacao);
+            pw.flush();
+            pw.close();
+            fw.close();        
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(Professor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return "Alteração feita";
     }
 }

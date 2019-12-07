@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -131,8 +132,7 @@ public class Ocupa
         {
         FileWriter lt = new FileWriter("diretorio//disc//"+this.turma.getDisciplina().getNome()+"//"+this.turma.getNome()+"//ocupa//listaT.txt",true);
         PrintWriter plt = new PrintWriter(lt);
-        plt.println(this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//"+Integer.toString(this.sala.getIdSala()));
-                
+        plt.println(this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//"+Integer.toString(this.sala.getIdSala()));     
         plt.flush();
         plt.close();
         lt.close();
@@ -151,6 +151,14 @@ public class Ocupa
         try 
         {
             FileWriter fwT = new FileWriter("diretorio//disc//"+this.turma.getDisciplina().getNome()+"//"+this.turma.getNome()+"//ocupa//"+this.getTurma().getNome()+"_"+this.getDia()+"_"+Integer.toString(this.getHorario())+".txt",true);
+            PrintWriter pwT = new PrintWriter(fwT);
+            pwT.println(this.turma.getNome());
+            pwT.println(this.sala.getIdSala());
+            pwT.println(this.dia);
+            pwT.println(this.horario);
+            pwT.flush();
+            pwT.close();
+            fwT.close();
         } 
         catch (IOException ex)
         {
@@ -160,6 +168,14 @@ public class Ocupa
         try 
         {
             FileWriter fwS = new FileWriter("diretorio//inst"+this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//"+Integer.toString(this.sala.getIdSala())+"//ocupa//"+this.getTurma().getNome()+"_"+this.getDia()+"_"+Integer.toString(this.getHorario())+".txt",true);
+            PrintWriter pwS = new PrintWriter(fwS);
+            pwS.println(this.turma.getNome());
+            pwS.println(this.sala.getIdSala());
+            pwS.println(this.dia);
+            pwS.println(this.horario);
+            pwS.flush();
+            pwS.close();
+            fwS.close();
         } 
         catch (IOException ex) 
         {
@@ -171,7 +187,28 @@ public class Ocupa
   
     public Ocupa cadOcupa(Turma T, ArrayList<Sala> SalaLocal)
     {
-        
+        int a=0;
+        String s, pred;
+        Scanner cn = new Scanner(System.in);
+        this.setTurma(T);
+        System.out.printf("informe o nome do predio ");
+        pred = cn.nextLine();
+        System.out.printf("informe o numero da sala ");
+        s = cn.nextLine();
+        for(int i=0; i<SalaLocal.size(); i++)
+        {
+            if(s.equals(SalaLocal.get(i).getIdSala()))
+            {
+                if(pred.equals(SalaLocal.get(i).getPredio().getNome()))
+                {
+                    this.setSala(SalaLocal.get(i));
+                }
+            }
+        }
+        System.out.printf("informe o dia da semana ");
+        this.setDia(cn.nextLine());
+        System.out.printf("informe informe o horário ");
+        this.setHorario(cn.nextInt());
         return this;
     }
 }
