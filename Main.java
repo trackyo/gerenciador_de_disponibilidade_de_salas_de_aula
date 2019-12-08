@@ -122,7 +122,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
     
     public void menu()//método para printar na tela as opções do menu
     {
-        System.out.println("1Cadastro");
+        System.out.println("Cadastro");
         System.out.println("0. Fim");
         System.out.println("1. Instituicao");
         System.out.println("2. Predio");
@@ -151,29 +151,45 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                 break;//volta pra dentro do laço do
 
             case 2://só pode ser usada depois da primeira execução de cadstro inst
+		if(InstFim != NULL)
+		{
                 cadastroPredio();//função que cadastra só pred => sala
                 break;//acho que será nescessário colocar uyma condição
-
+		}
+		
             case 3:
-                cadastroSala();//função que cadastra apenas sala
-                break;
+		if(PredLista != NULL)
+		{
+			cadastroSala();//função que cadastra apenas sala
+			break;
+		}
 
             case 4:// só pode ser executada depois de cadastro Inst
+		if(SalaFim != NULL)
+		{	    
                 cadastroProfessor();//função que cadastra professor
                 break;
-                
+		}
+			    
             case 5://só pode ser executado depois de castro professor
-                cadastroDiciplina();//cadastra Disciplina => Turma => Ocupação
-                break;
+		if(ProfLista!= NULL)
+		{
+			cadastroDiciplina();//cadastra Disciplina => Turma => Ocupação
+			break;
+		}
                 
             case 6://só pode ser executada se já tiver uma disciplina cadastrada
-                cadastroTurma();//cadastra turm => Ocupação
-                break;
-                
+		if(DiscFim != NULL)
+		{
+			cadastroTurma();//cadastra turm => Ocupação
+			break;
+		}
             case 7://só pode ser executado depois que CadInst => cadProf => CadDisc
-                cadastroAluno();//cadastra um aluno e suas turmas
-                break;
-
+		if(TurmaFim != NULL)
+		{
+			cadastroAluno();//cadastra um aluno e suas turmas
+			break;
+		}
             default:
                 System.out.println("Opção inválida.");
             }
