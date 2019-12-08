@@ -29,7 +29,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
     ArrayList<Aluno> AlunoFim;
     ArrayList<Ocupa> OcupaFim;
     
-    public void LerArqInst()//função imcompleta(talvez seja apagada vcs não precisam mexer com ela)
+    /*public void LerArqInst()//função imcompleta(talvez seja apagada vcs não precisam mexer com ela)
     {
         try 
         {
@@ -118,7 +118,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }
+    }*/
     
     public void menu()//método para printar na tela as opções do menu
     {
@@ -143,9 +143,11 @@ public class Main // classe main auxiliar para mexer em elementos não estático
             menu();
             opcao = entrada.nextInt();
 
-            switch(opcao){
+            switch(opcao)
+            {
             case 1:
-                cadastroInst();//função que cadastra Inst => Pred => Sala
+                
+                InstFim.add(cadastroInst());//função que cadastra Inst => Pred => Sala
                 break;//volta pra dentro do laço do
 
             case 2://só pode ser usada depois da primeira execução de cadstro inst
@@ -210,13 +212,13 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         new Main(); // declaração do metodo main 
     }
     
-    public final void cadastroInst()//cadastra instituições
+    public Instituicao cadastroInst()//cadastra instituições
     {//primeiro a ser cadastrado
         Instituicao Inst = new Instituicao();
         int a;
         ArrayList<Predio> PredioLocal = new ArrayList();//array list apenas para mexer internamente na função
         Scanner cn = new Scanner(System.in);
-	System.out.printf("informe o nome ");
+	System.out.printf("informe o nome da instituição ");
         Inst.setNome(cn.nextLine());
         Inst.criaDiretInst();
         Inst.Salvar();//cria um arquivo .txt com as informações fornecidas e mostra um balão na tela quando completo 
@@ -238,8 +240,8 @@ public class Main // classe main auxiliar para mexer em elementos não estático
             }
         }
         Inst.setPredios(PredioLocal);//adiciona a lista de predios para o objeto inst
-        InstFim.add(Inst);// adiciona o objeto a sua respectiva lista
         
+        return Inst;
     } 
 
     public void cadastroPredio()//cadastra apenas prédio e salas
@@ -360,6 +362,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         Professor P = new Professor();
         String Inst;
         Scanner cn = new Scanner(System.in);
+        Scanner cn2 = new Scanner(System.in);
         System.out.printf("informe a instituicao");
         Inst = cn.nextLine();
         for(int a=0; a<InstFim.size(); a++)//verifica se a institução existe
@@ -367,11 +370,15 @@ public class Main // classe main auxiliar para mexer em elementos não estático
             if(Inst.equals(InstFim.get(a).getNome()))
             {
                 P.setInst(InstFim.get(a));
+                P.criaDiretPes();
                 break;
             }
         }
+        System.out.printf("informe nome ");
         P.setNome(cn.nextLine());
-        P.setMatricula(cn.nextLong());
+        System.out.printf("informe a matrícula");
+        P.setMatricula(cn2.nextInt());
+        System.out.printf("informe a especialização");
         P.setEspecializacao(cn.nextLine());
         P.criaDiretProf();
         P.salvarLisProf();
@@ -389,7 +396,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         System.out.printf("informe o nome");
         A.setNome(cn.nextLine());
         System.out.printf("informe a matrícula");
-        A.setMatricula(cn.nextLong());
+        A.setMatricula(cn.nextInt());
         System.out.printf("informe o curso");
         A.setCurso(cn.nextLine());
         System.out.printf("informe a instituicao");

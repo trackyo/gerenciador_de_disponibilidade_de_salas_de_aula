@@ -7,7 +7,7 @@ public class Pessoa
 {
     Instituicao Inst;
     private String nome;
-    private long matricula;
+    private int matricula;
 
 
     public Instituicao getInst() 
@@ -30,12 +30,12 @@ public class Pessoa
         this.nome = nome;
     }
 
-    public Long getMatricula() 
+    public int getMatricula() 
     {
         return matricula;
     }
 
-    public void setMatricula(long matricula) 
+    public void setMatricula(int matricula) 
     {
         this.matricula = matricula;
     }
