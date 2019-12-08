@@ -103,7 +103,7 @@ public class Ocupa
         return "Lista Salva";
     }
     
-    public String salvarLisSala()
+    /*public String salvarLisSala()
     {
             
         try 
@@ -144,7 +144,7 @@ public class Ocupa
         }
 
         return "Lista salva";
-    }  
+    }*/  
     
     public String Salvar()
     {
@@ -190,11 +190,12 @@ public class Ocupa
         int a=0;
         String s, pred;
         Scanner cn = new Scanner(System.in);
+        Scanner cn2 = new Scanner(System.in);
         this.setTurma(T);
         System.out.printf("informe o nome do predio ");
         pred = cn.nextLine();
         System.out.printf("informe o numero da sala ");
-        s = cn.nextLine();
+        s = cn2.nextLine();
         for(int i=0; i<SalaLocal.size(); i++)//percorre a lista de salas recebida
         {
             if(s.equals(SalaLocal.get(i).getIdSala()))//verifica se os nomes das salas são iguais
@@ -206,7 +207,7 @@ public class Ocupa
             }
         }
         System.out.printf("informe o dia da semana ");
-        this.setDia(cn.nextLine());
+        this.setDia(cn2.nextLine());
         System.out.printf("informe informe o horário ");
         this.setHorario(cn.nextInt());
         return this;

@@ -120,7 +120,7 @@ public class Turma
     
     public void criaDiretTurmaProf()
     {
-        File Insti = new File("diretorio//inst//"+this.professor.getInst().getNome()+"//pessoa//professor"+this.professor.getNome(), this.nome);
+        File Insti = new File("diretorio//inst//"+this.professor.getInst().getNome()+"//pessoa//professor//"+this.professor.getNome(), this.nome);
         boolean jk = Insti.mkdir();
     }
     
@@ -167,14 +167,14 @@ public class Turma
         
         try 
         {
-            FileWriter fwP = new FileWriter("diretorio//inst//"+this.professor.getInst().getNome()+"//pessoa//professor"+this.professor.getNome()+"//"+this.nome+"//"+this.nome+".txt");
+            FileWriter fwP = new FileWriter("diretorio//inst//"+this.professor.getInst().getNome()+"//pessoa//professor//"+this.professor.getNome()+"//"+this.nome+"//"+this.nome+".txt");
             PrintWriter pwP = new PrintWriter(fwP);
             pwP.println(this.disciplina.getNome());
             pwP.println(this.professor.getNome());
             pwP.println(this.nome);
             pwP.println(this.numAlunos);
             pwP.println(this.numDiasSema);
-            pwP.flush();
+            pwP.flush(); 
             pwP.close();
             fwP.close();
         } 
@@ -191,19 +191,22 @@ public class Turma
         int n, a=0;
         Sala sala;
         Scanner cn = new Scanner(System.in);
+        Scanner cn2 = new Scanner(System.in);
         ArrayList <Ocupa> OcupaLocal = new ArrayList();
         this.setDisciplina(D);
         this.setProfessor(P);
+        System.out.printf("informe o nome da turma ");
+        this.setNome(cn.nextLine());
         System.out.printf("informe o número de alunos ");
-        this.setNumAlunos(cn.nextInt());
+        this.setNumAlunos(cn2.nextInt());
         System.out.printf("informe o número de dias na semana ");
         n = cn.nextInt();
+        this.setNumDiasSema(n);
         this.criaDiretTurmaDisc();
         this.criaDiretTurmaProf();
         this.salvarLisDisc();
         this.salvarLisProf();
         this.Salvar();
-        this.setNumDiasSema(n);
         for (int i=0; i<n; i++)
         {
             do
@@ -211,38 +214,25 @@ public class Turma
               Ocupa O = new Ocupa();
               O.cadOcupa(this, SalaLocal);
               sala = O.cadOcupa(this, SalaLocal).getSala();
-              if(! sala.getOcupa().contains(O.cadOcupa(this, SalaLocal).getDia()))
+              if(sala.getOcupa().contains(O.getDia()) && sala.getOcupa().contains(O.getHorario()))
               {
-                if(! sala.getOcupa().contains(O.cadOcupa(this, SalaLocal).getHorario()))  
-                {
-                    OcupaLocal.add(O.cadOcupa(this, SalaLocal));
-                    O.cadOcupa(this, SalaLocal).criaDiretOcupaSala();
-                    O.cadOcupa(this, SalaLocal).criaDiretOcupaTurma();
-                    O.cadOcupa(this, SalaLocal).salvarNomeArq();
-                    O.cadOcupa(this, SalaLocal).salvarLisSala();
-                    O.cadOcupa(this, SalaLocal).salvarLisTurma();
-                    O.cadOcupa(this, SalaLocal).Salvar();
-                    a=42;
-                }
-                else
-                {
-                    System.out.printf("Ocupacao invalida ");
-                }
-                
+                System.out.printf("Ocupacao invalida ");   
               }
               else
               {
-                System.out.printf("Ocupacao invalida ");
+                
+                OcupaLocal.add(O.cadOcupa(this, SalaLocal));
+                O.cadOcupa(this, SalaLocal).criaDiretOcupaSala();
+                O.cadOcupa(this, SalaLocal).criaDiretOcupaTurma();
+                O.cadOcupa(this, SalaLocal).salvarNomeArq();
+                    //O.cadOcupa(this, SalaLocal).salvarLisSala();
+                    //O.cadOcupa(this, SalaLocal).salvarLisTurma();
+                O.cadOcupa(this, SalaLocal).Salvar();
+                a=42;
               }
               
             }while(a<42);    
         }
-        this.setOcupacoes(OcupaLocal);
-        this.criaDiretTurmaDisc();
-        this.criaDiretTurmaProf();
-        this.salvarLisDisc();
-        this.salvarLisProf();
-        this.Salvar();
         return this;
     }
     

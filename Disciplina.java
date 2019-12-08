@@ -59,24 +59,24 @@ public class Disciplina
         Scanner cn = new Scanner(System.in);
         System.out.println("Defina o Grau acadêmico da Disciplina");
         gr = cn.nextLine();
-    	  	if(gr.equalsIgnoreCase("graduação")|| gr.equalsIgnoreCase("graduacao")) 
+    	  	if(gr.equals("graduação")|| gr.equals("graduacao")) 
                 {
     		setGrau("Graduação.");
     		
                 }
                 
-    	  	if (gr.equalsIgnoreCase("extensão") || gr.equalsIgnoreCase("extensao")) 
+    	  	if (gr.equals("extensão") || gr.equals("extensao")) 
                 {
     			setGrau("Extensão.");
     	  	
     	  	}
     	  	
-    	  	if (gr.equalsIgnoreCase("Lato Sensu")) 
+    	  	if (gr.equals("Lato Sensu")) 
                 {
     	  		setGrau("Lato Sensu.");
                 }
                 
-    	  	if(gr.equalsIgnoreCase("stricto sensu"))
+    	  	if(gr.equals("stricto sensu"))
                 {
         		setGrau("Stricto Sensu.");
         		
@@ -122,11 +122,11 @@ public class Disciplina
     {
         try 
         {
-            FileWriter fw = new FileWriter("diretorio//disc"+this.nome+"//"+this.nome+".txt",true);
+            FileWriter fw = new FileWriter("diretorio//disc//"+this.nome+"//"+this.nome+".txt");
             PrintWriter pw = new PrintWriter(fw);
-            pw.println(this.nome);
-            pw.println(this.codigo);
-            pw.println(this.grau);
+            pw.println(this.getNome());
+            pw.println(this.getCodigo());
+            pw.println(this.getGrau());
             pw.flush();
             pw.close();
             fw.close();

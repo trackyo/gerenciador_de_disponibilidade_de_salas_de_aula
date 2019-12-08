@@ -29,7 +29,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
     ArrayList<Aluno> AlunoFim;
     ArrayList<Ocupa> OcupaFim;
     
-    /*public void LerArqInst()//função imcompleta(talvez seja apagada vcs não precisam mexer com ela)
+    public void LerArqInst()//função imcompleta(talvez seja apagada vcs não precisam mexer com ela)
     {
         try 
         {
@@ -66,6 +66,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                     Pred.setNome(cont2Pred);
                     Pred.setQtd_salas(Integer.parseInt(cont3Pred));
                     InstFim.get(a).getPredios().add(Pred);
+                    PredLista.add(Pred);
                     
                     BufferedReader arqListSala = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//"+linhaPred+"//sala//lista.txt"));//função para abrir a pasta dentro da pasta
                     String linhaSala = "";
@@ -91,22 +92,56 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                         S.setProjetor(Boolean.parseBoolean(cont5Sala));
                         S.setTv(Boolean.parseBoolean(cont6Sala));
                         InstFim.get(a).getPredios().get(b).getSala().add(S);
+                        SalaFim.add(S);
                         
+                        linhaSala = arqListSala.readLine();
                         arqContSala.close();
                         arqDadosSala.close();
                         c++;
                     }
                     arqListSala.close();
+                    linhaPred = arqListPred.readLine();
                     arqContPred.close();
                     arqDadosPred.close();
                     
                     b++;            
                 }
                 arqListPred.close();
+                
+                BufferedReader arqListProf = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//pessoa//professor//lista.txt"));//função para abrir a pasta dentro da pasta
+                String linhaProf = "";
+                linhaProf = arqListProf.readLine();
+                while(linhaProf != null)
+                {
+                    int x=0;
+                    BufferedReader arqContProf = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//pessoa//professor//"+linhaProf+"//"+linhaProf+".txt"));
+                    String cont1Prof, cont2Prof, cont3Prof, cont4Prof;
+                    cont1Prof = arqContProf.readLine();
+                    cont2Prof = arqContProf.readLine();
+                    cont3Prof = arqContProf.readLine();
+                    cont4Prof = arqContProf.readLine();
+                    
+                    BufferedReader arqDadosProf = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//pessoa//professor//"+linhaProf+"//"+linhaProf+".txt"));
+                    Professor P = new Professor();
+                    P.setInst(I);
+                    P.setNome(cont2Prof);
+                    P.setMatricula(Integer.parseInt(cont3Prof));
+                    P.setEspecializacao(cont4Prof);
+                    InstFim.get(a).getProfessores().add(P);
+                    ProfLista.add(P);
+                    
+                    linhaProf = arqListProf.readLine();
+                    arqContProf.close();
+                    arqDadosProf.close();
+                    
+                    x++;
+                }
+                arqListProf.close();
+                linhaInst = arqListInst.readLine();
                 arqContInst.close();
                 arqDadosInst.close();
               
-                a++;
+                a++; 
             }
             arqListInst.close();
         } 
@@ -116,9 +151,8 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         } catch (IOException ex) 
         {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }*/
+        }        
+    }
     
     public void menu()//método para printar na tela as opções do menu
     {
@@ -136,7 +170,8 @@ public class Main // classe main auxiliar para mexer em elementos não estático
     
     public void funcMenu()//função que instancia o menu
     {
-       int opcao;
+        int opcao;
+        LerArqInst();
         Scanner entrada = new Scanner(System.in);
 
         do{//loop para repetir o menu até que o usuário queira sair
@@ -307,14 +342,18 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         int a;
         String prof;
         Scanner cn = new Scanner(System.in);
+        Scanner cn2 = new Scanner(System.in);
         ArrayList <Turma> TurmaLocal = new ArrayList();
         System.out.printf("informe o nome da disciplina ");
         D.setNome(cn.nextLine());
         System.out.printf("informe o código ");
-        D.setCodigo(cn.nextInt());
+        D.setCodigo(cn2.nextInt());
         D.escolherGrau();//instancia a função para escolher o grau da disciplina
         System.out.printf("informe o numero de turmas ");
-        a = cn.nextInt();
+        a = cn2.nextInt();
+        D.criaDiretDisciplina();
+        D.salvarLis();
+        D.Salvar();
         for(int i=0; i<a; i++)//loop para instanciar vários objetos de turma
         {
             Turma T = new Turma();
@@ -324,10 +363,10 @@ public class Main // classe main auxiliar para mexer em elementos não estático
             {
                 if(prof.equals(ProfLista.get(j).getNome()))
                 {
-                    TurmaLocal.add(T.cadTurma(D, ProfLista.get(j), SalaFim));
+                    T.cadTurma(D, ProfLista.get(j), SalaFim);
+                    TurmaLocal.add(T);
                     TurmaFim.add(T);
                     ProfLista.get(j).setTurma(T);
-                    ProfLista.get(j).Salvar();
                     for(int b=0; b<SalaFim.size(); b++)//sequencia de salos para instanciar cada turma em um cada campo das listas (não tenho certeza se essa parte está certa)
                     {
                         for(int c=0; c<T.getOcupacoes().size(); c++)
@@ -335,20 +374,32 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                             if(SalaFim.get(b).getIdSala() == (T.getOcupacoes().get(c).getSala().getIdSala()))
                             {
                                 SalaFim.get(b).getOcupa().add(T.getOcupacoes().get(c));
-                                for(int d=0; d<PredLista.size(); d++)
+                                if(SalaFim.get(b).getPredio().getInstituicao().getNome().equals(T.getOcupacoes().get(c).getSala().getPredio().getInstituicao().getNome()))
                                 {
-                                    if(SalaFim.get(b).getPredio().getNome().equals(PredLista.get(d).getNome()))
+                                    for(int d=0; d<InstFim.size(); i++)
                                     {
-                                        for(int e=0; d<PredLista.get(d).getSala().size(); e++)
+                                        if(InstFim.get(d).getNome().equals(T.getOcupacoes().get(c).getSala().getPredio().getInstituicao().getNome()))
                                         {
-                                            PredLista.get(d).getSala().get(e).getTurma().add(T);
+                                           for(int e=0; e<InstFim.get(d).getPredios().size(); e++)
+                                           {
+                                               if(InstFim.get(d).getPredios().get(e).getNome().equals(T.getOcupacoes().get(c).getSala().getPredio().getNome()))
+                                               {
+                                                   for(int f=0; f<InstFim.get(d).getPredios().get(e).getSala().size(); f++)
+                                                   {
+                                                       if(Integer.toString(InstFim.get(d).getPredios().get(e).getSala().get(f).getIdSala()).equals(Integer.toString(T.getOcupacoes().get(c).getSala().getIdSala())))
+                                                       {
+                                                           InstFim.get(d).getPredios().get(e).getSala().get(f).getTurma().add(T);
+                                                       }
+                                                   }
+                                               }
+                                           }
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    break;
+                 break;
                 }
             }
             

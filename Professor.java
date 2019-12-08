@@ -70,7 +70,7 @@ public class Professor extends Pessoa
         {
             FileWriter fw = new FileWriter("diretorio//inst//"+this.Inst.getNome()+"//pessoa//professor//"+this.getNome()+"//"+this.getNome()+".txt");
             PrintWriter pw = new PrintWriter(fw);
-            pw.println(this.Inst);
+            pw.println(this.Inst.getNome());
             pw.println(this.getNome());
             pw.println(this.getMatricula());
             pw.println(this.especializacao);
