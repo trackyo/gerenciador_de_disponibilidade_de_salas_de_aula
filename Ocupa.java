@@ -195,13 +195,13 @@ public class Ocupa
         pred = cn.nextLine();
         System.out.printf("informe o numero da sala ");
         s = cn.nextLine();
-        for(int i=0; i<SalaLocal.size(); i++)
+        for(int i=0; i<SalaLocal.size(); i++)//percorre a lista de salas recebida
         {
-            if(s.equals(SalaLocal.get(i).getIdSala()))
+            if(s.equals(SalaLocal.get(i).getIdSala()))//verifica se os nomes das salas são iguais
             {
-                if(pred.equals(SalaLocal.get(i).getPredio().getNome()))
+                if(pred.equals(SalaLocal.get(i).getPredio().getNome()))//verifica se o nome dos predios são iguais
                 {
-                    this.setSala(SalaLocal.get(i));
+                    this.setSala(SalaLocal.get(i));//seta o objeto da sala escolhido na lista
                 }
             }
         }

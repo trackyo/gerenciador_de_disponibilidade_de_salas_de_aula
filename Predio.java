@@ -107,8 +107,9 @@ public class Predio
     
     public Predio cadPred(Instituicao Inst)
     {
-        int n;
+        int n, i=0;
         Scanner cn = new Scanner(System.in);
+        Scanner cn2 = new Scanner(System.in);//scanner para limpar o buffer(estava dando erro antes)
         ArrayList<Sala> SalaPred = new ArrayList();//arrayList temporário para salas
         this.setInstituicao(Inst);
         System.out.printf("informe o nome do prédio ");
@@ -119,23 +120,28 @@ public class Predio
         this.criaDiretPredio();
         this.Salvar();
         this.salvarLis();
-        for(int i=0; i<n; i++)
+        do
         {
             String select;
-            System.out.printf("deseja adicionar sala ou labarotório? ");
-            select = cn.nextLine();//seleciona o tipo de sala
-            if(select.equals("sala"))
+            System.out.printf("deseja adicionar sala ou laboratorio? ");
+            select = cn2.nextLine();//seleciona o tipo de sala
+            switch(select)
             {
-                Sala S = new Sala();
-                
-                SalaPred.add(S.cadSala(this));
+                case "sala":
+                    Sala S = new Sala();
+                    SalaPred.add(S.cadSala(this));
+                    break;
+
+                case "laboratorio":
+                    Laboratorio L = new Laboratorio();
+                    SalaPred.add(L.cadLab(this));
+                    break;
+
+                default:
+                    System.out.println("Opção inválida.");
             }
-            else
-            {
-                Laboratorio L = new Laboratorio();
-                SalaPred.add(L.cadLab(this));
-            }
-        }
+            i++;
+        }while(i<n);
         this.setSala(SalaPred);
         
         return this;

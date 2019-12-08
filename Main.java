@@ -21,14 +21,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
     ArrayList<Professor> ProfLista;
     ArrayList<Laboratorio> LabLista;
     ArrayList<String> EquipLista;
-    
-    ArrayList<Instituicao> InstAux;//listas temporárias, para manter os objetos antes de serem salvos (provavelmente essa parte seja removida)
-    ArrayList<Disciplina> DiscAux;// tais mudanças serão realizadas pq provavelmente dessa forma atual dará um erro por modificação em tempo de execução
-    ArrayList<Turma> TurmaAux;// eu pretendo modificar as coisa pra que eu possa criar cada objeto pelos dados salvos em arquivos
-    ArrayList<Sala> SalaAux;
-    ArrayList<Aluno> AlunoAux;
-    ArrayList<Ocupa> OcupaAux;
-    
+
     ArrayList<Instituicao> InstFim;//listas que serão salvas(possivelmente serão modificadas)
     ArrayList<Disciplina> DiscFim;
     ArrayList<Turma> TurmaFim;
@@ -36,7 +29,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
     ArrayList<Aluno> AlunoFim;
     ArrayList<Ocupa> OcupaFim;
     
-    public void LerArq()//função imcompleta
+    public void LerArqInst()//função imcompleta(talvez seja apagada vcs não precisam mexer com ela)
     {
         try 
         {
@@ -45,34 +38,77 @@ public class Main // classe main auxiliar para mexer em elementos não estático
             linhaInst = arqListInst.readLine();//string para ler linha
             while(linhaInst != null)//laço para ler todo o arquivo
             {
+                int a = 0;
                 BufferedReader arqContInst = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//"+linhaInst+".txt"));//abre o arquivo que contém o objeto
                 String cont1Inst;//strings para contar linhas
                 cont1Inst = arqContInst.readLine();
                 
-                BufferedReader arqDadosInst = new BufferedReader(new FileReader(linhaInst+".txt"));//função para instanciar objetos
+                BufferedReader arqDadosInst = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//"+linhaInst+".txt"));//função para instanciar objetos
                 Instituicao I = new Instituicao();
                 I.setNome(arqDadosInst.readLine());
-                InstAux.add(I);//arraysList auxliar para gaurdar informação
+                InstFim.add(I);//arraysList auxliar para gaurdar informação
                 
                 BufferedReader arqListPred = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//lista.txt"));//função para abrir a pasta dentro da pasta
                 String linhaPred = "";
                 linhaPred = arqListPred.readLine();
                 while(linhaPred != null)
                 {
+                    int b=0;
                     BufferedReader arqContPred = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//"+linhaPred+"//"+linhaPred+".txt"));
                     String cont1Pred, cont2Pred, cont3Pred;
                     cont1Pred = arqContPred.readLine();
                     cont2Pred = arqContPred.readLine();
                     cont3Pred = arqContPred.readLine();
                 
-                    BufferedReader arqDadosPred = new BufferedReader(new FileReader(linhaPred+".txt"));
+                    BufferedReader arqDadosPred = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//"+linhaPred+"//"+linhaPred+".txt"));
                     Predio Pred = new Predio();
                     Pred.setInstituicao(I);
                     Pred.setNome(cont2Pred);
+                    Pred.setQtd_salas(Integer.parseInt(cont3Pred));
+                    InstFim.get(a).getPredios().add(Pred);
                     
+                    BufferedReader arqListSala = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//"+linhaPred+"//sala//lista.txt"));//função para abrir a pasta dentro da pasta
+                    String linhaSala = "";
+                    linhaSala = arqListSala.readLine();
+                    while(linhaSala != null)
+                    {
+                        int c=0;
+                        BufferedReader arqContSala = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//"+linhaPred+"//sala//"+linhaSala+"//"+linhaSala+".txt"));
+                        String cont1Sala, cont2Sala, cont3Sala, cont4Sala, cont5Sala, cont6Sala;
+                        cont1Sala = arqContSala.readLine();
+                        cont2Sala = arqContSala.readLine();
+                        cont3Sala = arqContSala.readLine();
+                        cont4Sala = arqContSala.readLine();
+                        cont5Sala = arqContSala.readLine();
+                        cont6Sala = arqContSala.readLine();
+                        
+                        BufferedReader arqDadosSala = new BufferedReader(new FileReader("diretorio//inst//"+linhaInst+"//"+linhaPred+"//sala//"+linhaSala+"//"+linhaSala+".txt"));
+                        Sala S = new Sala();
+                        S.setPredio(Pred);
+                        S.setIdSala(Integer.parseInt(cont2Sala));
+                        S.setCapacidade(Integer.parseInt(cont3Sala));
+                        S.setAr(Boolean.parseBoolean(cont4Sala));
+                        S.setProjetor(Boolean.parseBoolean(cont5Sala));
+                        S.setTv(Boolean.parseBoolean(cont6Sala));
+                        InstFim.get(a).getPredios().get(b).getSala().add(S);
+                        
+                        arqContSala.close();
+                        arqDadosSala.close();
+                        c++;
+                    }
+                    arqListSala.close();
+                    arqContPred.close();
+                    arqDadosPred.close();
+                    
+                    b++;            
                 }
-                
+                arqListPred.close();
+                arqContInst.close();
+                arqDadosInst.close();
+              
+                a++;
             }
+            arqListInst.close();
         } 
         catch (FileNotFoundException ex) 
         {
@@ -84,9 +120,9 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         
     }
     
-    public static void menu()
+    public void menu()//método para printar na tela as opções do menu
     {
-        System.out.println("\tCadastro");
+        System.out.println("1Cadastro");
         System.out.println("0. Fim");
         System.out.println("1. Instituicao");
         System.out.println("2. Predio");
@@ -98,19 +134,56 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         System.out.println("Opcao: ");
     }
     
+    public void funcMenu()//função que instancia o menu
+    {
+       int opcao;
+        Scanner entrada = new Scanner(System.in);
+
+        do{//loop para repetir o menu até que o usuário queira sair
+            menu();
+            opcao = entrada.nextInt();
+
+            switch(opcao){
+            case 1:
+                cadastroInst();//função que cadastra Inst => Pred => Sala
+                break;//volta pra dentro do laço do
+
+            case 2://só pode ser usada depois da primeira execução de cadstro inst
+                cadastroPredio();//função que cadastra só pred => sala
+                break;//acho que será nescessário colocar uyma condição
+
+            case 3:
+                cadastroSala();//função que cadastra apenas sala
+                break;
+
+            case 4:// só pode ser executada depois de cadastro Inst
+                cadastroProfessor();//função que cadastra professor
+                break;
+                
+            case 5://só pode ser executado depois de castro professor
+                cadastroDiciplina();//cadastra Disciplina => Turma => Ocupação
+                break;
+                
+            case 6://só pode ser executada se já tiver uma disciplina cadastrada
+                cadastroTurma();//cadastra turm => Ocupação
+                break;
+                
+            case 7://só pode ser executado depois que CadInst => cadProf => CadDisc
+                cadastroAluno();//cadastra um aluno e suas turmas
+                break;
+
+            default:
+                System.out.println("Opção inválida.");
+            }
+        } while(opcao != 0); 
+    }
+    
     public Main()
     {   
         PredLista = new ArrayList();//instanciando os arrayLists
         ProfLista = new ArrayList();
         LabLista = new ArrayList();
         EquipLista = new ArrayList();
-        
-        InstAux = new ArrayList();
-        DiscAux = new ArrayList();
-        TurmaAux = new ArrayList();
-        SalaAux = new ArrayList();
-        AlunoAux = new ArrayList();
-        OcupaAux = new ArrayList();
         
         InstFim = new ArrayList();
         DiscFim = new ArrayList();
@@ -127,47 +200,9 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         File Disc = new File(diretorio, "disc");
         boolean ik = Disc.mkdir(); 
         
-        int opcao;
-        Scanner entrada = new Scanner(System.in);
-
-        do{
-            menu();
-            opcao = entrada.nextInt();
-
-            switch(opcao){
-            case 1:
-                cadastroInst();
-                break;
-
-            case 2:
-                cadastroPredio();
-                break;
-
-            case 3:
-                cadastroSala();
-                break;
-
-            case 4:
-                cadastroProfessor();
-                break;
-                
-            case 5:
-                cadastroDiciplina();
-                break;
-                
-            case 6:
-                cadastroTurma();
-                break;
-                
-            case 7:
-                cadastroAluno();
-                break;
-
-            default:
-                System.out.println("Opção inválida.");
-            }
-        } while(opcao != 0);
+        //LerArqInst();//se quiser testar a função tá pronta só ´demora muito(talvez tenha como arrumar isso)
         
+        funcMenu();// cham a função do menu
     }
     
     public static void main(String[] args)//classe main estática
@@ -175,35 +210,36 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         new Main(); // declaração do metodo main 
     }
     
-    public void cadastroInst()//cadastra instituições
+    public final void cadastroInst()//cadastra instituições
     {//primeiro a ser cadastrado
         Instituicao Inst = new Instituicao();
         int a;
-        ArrayList<Predio> PredioLocal = new ArrayList();
+        ArrayList<Predio> PredioLocal = new ArrayList();//array list apenas para mexer internamente na função
         Scanner cn = new Scanner(System.in);
 	System.out.printf("informe o nome ");
         Inst.setNome(cn.nextLine());
         Inst.criaDiretInst();
         Inst.Salvar();//cria um arquivo .txt com as informações fornecidas e mostra um balão na tela quando completo 
-        Inst.salvarLis();
+        Inst.salvarLis();//cria um arquivo .txt com o nome dos objetos
         System.out.printf("informe o numero de predios ");
         a = cn.nextInt();
         for(int b=0; b<a; b++)
         {
             Predio Pred = new Predio();
-            PredioLocal.add(Pred.cadPred(Inst));
-            PredLista.add(Pred.cadPred(Inst));
+            PredioLocal.add(Pred.cadPred(Inst));//instancia a função cadPredio da classe Predio
+            PredLista.add(Pred);//adiciona o objeto para a lista de predios
             
         }
-        for(int c=0; c<PredioLocal.size(); c++)
+        for(int c=0; c<PredioLocal.size(); c++)//funçãp que pecorre o Array de predio local
         {
-            for(int d=0; d<PredioLocal.get(c).getSala().size(); d++)
+            for(int d=0; d<PredioLocal.get(c).getSala().size(); d++)//percorre as salas dentro do aray
             {
-                SalaFim.add(PredioLocal.get(c).getSala().get(d));
+                SalaFim.add(PredioLocal.get(c).getSala().get(d));//adiciona as salas
             }
         }
-        Inst.setPredios(PredioLocal);
-        InstFim.add(Inst);
+        Inst.setPredios(PredioLocal);//adiciona a lista de predios para o objeto inst
+        InstFim.add(Inst);// adiciona o objeto a sua respectiva lista
+        
     } 
 
     public void cadastroPredio()//cadastra apenas prédio e salas
@@ -216,13 +252,13 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         Inst = cn.nextLine();
         for(int i=0; i<InstFim.size();i++)//verifica se a instituição existe
         {
-            if(Inst.equals(InstFim.get(i).getNome()))
+            if(Inst.equals(InstFim.get(i).getNome()))//compara duas strings para descobrir se os predios são iguais
             {
-                InstFim.get(i).getPredios().add(Pred.cadPred(InstFim.get(i)));
-                PredLista.add(Pred.cadPred(InstFim.get(i)));
-                for(int j=0;j<Pred.cadPred(InstFim.get(i)).getSala().size(); j++)
+                InstFim.get(i).getPredios().add(Pred.cadPred(InstFim.get(i)));//instanbcia a função cadPred
+                PredLista.add(Pred);
+                for(int j=0;j<Pred.getSala().size(); j++)//separa as salas recem adicionada para poder adicionar em novas listas
                 {
-                    SalaFim.add(Pred.cadPred(InstFim.get(i)).getSala().get(i));
+                    SalaFim.add(Pred.getSala().get(i));
                     InstFim.get(i).Salvar();
                 }
                 
@@ -240,19 +276,19 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         Scanner cn = new Scanner(System.in);
         System.out.printf("informe o nome do Predio ");
         Pred = cn.nextLine();
-        for(int i=0; i<PredLista.size();i++)//verifica se a instituição existe
+        for(int i=0; i<PredLista.size();i++)//verifica se o predio existe
         {
             if(Pred.equals(PredLista.get(i).getNome()))
             {
-                PredLista.get(i).getSala().add(S.cadSala(PredLista.get(i)));
-                SalaFim.add(S.cadSala(PredLista.get(i)));//depois criar uma função para abrir o arquivo e modificar a quantidade de salas do predio
+                PredLista.get(i).getSala().add(S.cadSala(PredLista.get(i)));//instancia cadsala
+                SalaFim.add(S);//depois criar uma função para abrir o arquivo e modificar a quantidade de salas do predio
                 for(int j=0; j<InstFim.size(); j++)
                 {
                     for(int k=0; k<InstFim.get(j).getPredios().size(); k++)
                     {
                         if(InstFim.get(i).getPredios().get(k).getNome().equals(Pred))
                         {
-                            InstFim.get(i).getPredios().get(k).getSala().add(S.cadSala(PredLista.get(i)));
+                            InstFim.get(i).getPredios().get(k).getSala().add(S);
                             InstFim.get(i).Salvar();
                         }
                     }
@@ -263,7 +299,7 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         
     }        
     
-    public void cadastroDiciplina()// terceiro a ser cadastrado
+    public void cadastroDiciplina()// cadastras novas disciplinas => Turmas => Ocupações
     {
         Disciplina D = new Disciplina();
         int a;
@@ -274,35 +310,37 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         D.setNome(cn.nextLine());
         System.out.printf("informe o código ");
         D.setCodigo(cn.nextInt());
-        System.out.printf("informe a abordagem pedagógica ");
-        D.setAbordagem_pedagogica(cn.nextLine());
+        D.escolherGrau();//instancia a função para escolher o grau da disciplina
         System.out.printf("informe o numero de turmas ");
         a = cn.nextInt();
-        for(int i=0; i<a; i++)
+        for(int i=0; i<a; i++)//loop para instanciar vários objetos de turma
         {
             Turma T = new Turma();
             System.out.printf("informe o nome do professor ");
             prof = cn.nextLine();
-            for(int j=0; j<ProfLista.size(); j++)
+            for(int j=0; j<ProfLista.size(); j++)//verifica se o professor já foi registrado
             {
                 if(prof.equals(ProfLista.get(j).getNome()))
                 {
                     TurmaLocal.add(T.cadTurma(D, ProfLista.get(j), SalaFim));
-                    TurmaFim.add(T.cadTurma(D, ProfLista.get(j), SalaFim));
-                    ProfLista.get(j).setTurma(T.cadTurma(D, ProfLista.get(j), SalaFim));
+                    TurmaFim.add(T);
+                    ProfLista.get(j).setTurma(T);
                     ProfLista.get(j).Salvar();
-                    for(int b=0; b<SalaFim.size(); b++)
+                    for(int b=0; b<SalaFim.size(); b++)//sequencia de salos para instanciar cada turma em um cada campo das listas (não tenho certeza se essa parte está certa)
                     {
-                        for(int c=0; c<TurmaLocal.get(TurmaLocal.size()-1).getOcupacoes().size(); c++)
+                        for(int c=0; c<T.getOcupacoes().size(); c++)
                         {
-                            if(SalaFim.get(b).getIdSala() == (TurmaLocal.get(TurmaLocal.size()-1).getOcupacoes().get(c).getSala().getIdSala()))
+                            if(SalaFim.get(b).getIdSala() == (T.getOcupacoes().get(c).getSala().getIdSala()))
                             {
-                                SalaFim.get(b).getOcupa().add(TurmaLocal.get(TurmaLocal.size()-1).getOcupacoes().get(c));
+                                SalaFim.get(b).getOcupa().add(T.getOcupacoes().get(c));
                                 for(int d=0; d<PredLista.size(); d++)
                                 {
-                                    if(SalaFim.get(b).getPredio().getNome().equals(PredLista.get(d).getInstituicao().getNome()))
+                                    if(SalaFim.get(b).getPredio().getNome().equals(PredLista.get(d).getNome()))
                                     {
-                                        //depois terminar a função pra atualizar as listas
+                                        for(int e=0; d<PredLista.get(d).getSala().size(); e++)
+                                        {
+                                            PredLista.get(d).getSala().get(e).getTurma().add(T);
+                                        }
                                     }
                                 }
                             }
@@ -317,18 +355,18 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         DiscFim.add(D);
     }
     
-    public void cadastroProfessor()//segundo a ser cadastrado
+    public void cadastroProfessor()//função para cadastrar professor
     {
         Professor P = new Professor();
         String Inst;
         Scanner cn = new Scanner(System.in);
         System.out.printf("informe a instituicao");
         Inst = cn.nextLine();
-        for(int a=0; a<InstAux.size(); a++)
+        for(int a=0; a<InstFim.size(); a++)//verifica se a institução existe
         {
-            if(Inst.equals(InstAux.get(a).getNome()))
+            if(Inst.equals(InstFim.get(a).getNome()))
             {
-                P.setInst(InstAux.get(a));
+                P.setInst(InstFim.get(a));
                 break;
             }
         }
@@ -356,14 +394,15 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         A.setCurso(cn.nextLine());
         System.out.printf("informe a instituicao");
         Inst = cn.nextLine();
-        for(int a=0; a<InstAux.size(); a++)
+        for(int a=0; a<InstFim.size(); a++)//verifica se institução existe
         {
-            if(Inst.equals(InstAux.get(a).getNome()))
+            if(Inst.equals(InstFim.get(a).getNome()))
             {
-                A.setInst(InstAux.get(a));
+                A.setInst(InstFim.get(a));
                 break;
             }
         }
+        A.escolherGrau();//instancia a função para determinar o grau do aluno
         A.criaDiretAluno();
         A.criarDiretTurma();
         do//loop para adicionar quantas turmas forem nescessárias(como o i não incrementa ele sempre vai ser menor do que 42)
@@ -374,19 +413,22 @@ public class Main // classe main auxiliar para mexer em elementos não estático
             {
                 if(Disc.equals(DiscFim.get(j).getNome()))
                 {
-                    System.out.printf("informe a turma ");
-                    turma = cn.nextLine();
-                    for(int k=0; k<DiscFim.get(j).getTurmas().size();k++)//procura a turma
-                    {
-                        if(turma.equals(DiscFim.get(j).getTurmas().get(k).getNome()))
+                    if(DiscFim.get(j).getGrau().equals(A.getGrau()))//iverifiaca se os graus são iguais
+                    {    
+                        System.out.printf("informe a turma ");
+                        turma = cn.nextLine();
+                        for(int k=0; k<DiscFim.get(j).getTurmas().size();k++)//procura a turma
                         {
-                            DiscFim.get(j).getTurmas().get(k).getAlunos().add(A);
-                            TurmaLocal.add(DiscFim.get(j).getTurmas().get(k));//adiciona a turma
-                            A.salvaLisTurma(DiscFim.get(j).getTurmas().get(k));
-                            A.SalvarTurma(DiscFim.get(j).getTurmas().get(k));
-                            break;
+                            if(turma.equals(DiscFim.get(j).getTurmas().get(k).getNome()))
+                            {
+                                DiscFim.get(j).getTurmas().get(k).getAlunos().add(A);//adiciona o objeto a na lista de disciplinas na lista interna para turmas
+                                TurmaLocal.add(DiscFim.get(j).getTurmas().get(k));//adiciona a turma
+                                A.salvaLisTurma(DiscFim.get(j).getTurmas().get(k));
+                                A.SalvarTurma(DiscFim.get(j).getTurmas().get(k));
+                                break;
+                            }
                         }
-                    }
+                    }    
                 }
                 break;
             }
@@ -399,11 +441,11 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         }while(i<42);
         A.setTurmas(TurmaLocal);
         A.salvaLisAluno();
-        A.Salvar();
+        A.Salvar();//metodo polimorfo para salvar em arquivo
         AlunoFim.add(A);
     }
     
-    public void cadastroTurma()
+    public void cadastroTurma()//cadastra apenas turma e ocupação
     {
         int n, Sala;
         String Prof, Disc;
@@ -422,9 +464,9 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                 {
                     if(Prof.equals(ProfLista.get(j).getNome()))
                     {
-                        DiscFim.get(i).getTurmas().add(T.cadTurma(DiscFim.get(i), ProfLista.get(j), SalaFim));
-                        TurmaFim.add(T.cadTurma(DiscFim.get(i), ProfLista.get(j), SalaFim));
-                        for(int b=0; b<SalaFim.size(); b++)
+                        DiscFim.get(i).getTurmas().add(T.cadTurma(DiscFim.get(i), ProfLista.get(j), SalaFim));//instancia a função cadTurma
+                        TurmaFim.add(T);//adiciona na lista geral de turmas
+                        for(int b=0; b<SalaFim.size(); b++)//for para adicio nar turma nas listas de turma(não sei se está totalmente correto)
                         {
                             for(int c=0; c<TurmaFim.get(TurmaFim.size()-1).getOcupacoes().size(); c++)
                             {

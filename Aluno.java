@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,6 +14,17 @@ import java.util.logging.Logger;
 public class Aluno extends Pessoa 
 {
     private String curso;
+    private String grau;
+
+    public String getGrau() 
+    {
+        return grau;
+    }
+
+    public void setGrau(String grau) 
+    {
+        this.grau = grau;
+    }
     private ArrayList <Turma> turmas = new ArrayList<Turma>();
 
     public ArrayList<Turma> getTurmas() 
@@ -33,6 +45,43 @@ public class Aluno extends Pessoa
     public void setCurso(String curso) 
     {
         this.curso = curso;
+    }
+    
+    public void escolherGrau() 
+    {   
+        String gr;
+        Scanner cn = new Scanner(System.in);
+    	System.out.println("Defina o Grau acadêmico do aluno");
+        gr = cn.nextLine();
+    	  	if(gr.equalsIgnoreCase("graduação")|| gr.equalsIgnoreCase("graduacao")) 
+                {
+    		setGrau("Graduação.");
+    		
+                }
+                
+    	  	if (gr.equalsIgnoreCase("extensão") || gr.equalsIgnoreCase("extensao")) 
+                {
+    			setGrau("Extensão.");
+    	  	
+    	  	}
+    	  	
+    	  	if (gr.equalsIgnoreCase("Lato Sensu")) 
+                {
+    	  		setGrau("Lato Sensu.");
+                }
+                
+    	  	if(gr.equalsIgnoreCase("stricto sensu"))
+                {
+        		setGrau("Stricto Sensu.");
+        		
+        	}
+    
+    	  	else 
+                {
+                    System.out.println("Erro! Digite um Grau válido!");
+    	  	}
+    	System.out.println("O Grau do aluno é " + this.grau );
+    	      
     }
     
     public void criaDiretAluno()

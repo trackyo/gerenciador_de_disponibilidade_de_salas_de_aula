@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,9 +13,9 @@ public class Disciplina
 {
     private String nome;
     private long codigo;
-    private String abordagem_pedagogica;
-    private ArrayList <Turma> turmas = new ArrayList<Turma>();
-
+   private ArrayList <Turma> turmas = new ArrayList<Turma>();
+    private String grau;
+    
     public ArrayList<Turma> getTurmas() 
     {
         return turmas;
@@ -45,14 +46,48 @@ public class Disciplina
         this.codigo = codigo;
     }
 
-    public String getAbordagem_pedagogica() 
-    {
-        return abordagem_pedagogica;
+    
+    public void setGrau(String gr) {
+    	this.grau = gr;	
+    } 
+    public String getGrau() {
+    	return this.grau;
     }
-
-    public void setAbordagem_pedagogica(String abordagem_pedagogica) 
+    public void escolherGrau() 
     {
-        this.abordagem_pedagogica = abordagem_pedagogica;
+    	String gr;
+        Scanner cn = new Scanner(System.in);
+        System.out.println("Defina o Grau acadêmico da Disciplina");
+        gr = cn.nextLine();
+    	  	if(gr.equalsIgnoreCase("graduação")|| gr.equalsIgnoreCase("graduacao")) 
+                {
+    		setGrau("Graduação.");
+    		
+                }
+                
+    	  	if (gr.equalsIgnoreCase("extensão") || gr.equalsIgnoreCase("extensao")) 
+                {
+    			setGrau("Extensão.");
+    	  	
+    	  	}
+    	  	
+    	  	if (gr.equalsIgnoreCase("Lato Sensu")) 
+                {
+    	  		setGrau("Lato Sensu.");
+                }
+                
+    	  	if(gr.equalsIgnoreCase("stricto sensu"))
+                {
+        		setGrau("Stricto Sensu.");
+        		
+        	}
+    
+    	  	else 
+                {
+                    System.out.println("Erro! Digite um Grau válido!");
+    	  	}
+    	System.out.println("O Grau da disciplina é " + this.grau );
+    	      
     }
     
     public void criaDiretDisciplina()
@@ -61,7 +96,7 @@ public class Disciplina
         boolean jk = Insti.mkdir();
     }
     
-    public String salvarLis()//cria um arquivo .txt com o nome de todos os objhetos para facilitar a busca em pastas
+    public String salvarLis()//cria um arquivo .txt com o nome de todos os objetos para facilitar a busca em pastas
     {
             
         try 
@@ -91,7 +126,7 @@ public class Disciplina
             PrintWriter pw = new PrintWriter(fw);
             pw.println(this.nome);
             pw.println(this.codigo);
-            pw.println(this.abordagem_pedagogica);
+            pw.println(this.grau);
             pw.flush();
             pw.close();
             fw.close();

@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class Laboratorio extends Sala
 {
     private int qtd_computadores;
+    private String tipo_equipamento;
     private int qtd_equipametos;
-    private ArrayList <String> tipos_equipamentos = new ArrayList<String>();
 
     public int getQtd_computadores() 
     {
@@ -29,14 +29,14 @@ public class Laboratorio extends Sala
         this.qtd_equipametos = qtd_equipametos;
     }
 
-    public ArrayList<String> getTipos_equipamentos() 
+    public String getTipo_equipamento() 
     {
-        return tipos_equipamentos;
+        return tipo_equipamento;
     }
 
-    public void setTipos_equipamentos(ArrayList<String> tipos_equipamentos) 
+    public void setTipo_equipamento(String tipo_equipamento) 
     {
-        this.tipos_equipamentos = tipos_equipamentos;
+        this.tipo_equipamento = tipo_equipamento;
     }
     
     public Sala cadLab(Predio Pred)//depois criar um diretório apenas para laboratórios e salvar todos os objetos de lab lá também
@@ -44,6 +44,7 @@ public class Laboratorio extends Sala
         int m;
         ArrayList <String> equipList = new ArrayList();
         Scanner cn = new Scanner(System.in);
+        Scanner cn2 = new Scanner(System.in);//Scanner para limpar obuffer e não dar erro de execução
         this.setPredio(Pred);
         System.out.printf("informe o número da sala ");
         this.setIdSala(cn.nextInt());
@@ -57,15 +58,11 @@ public class Laboratorio extends Sala
         this.setTv(cn.nextBoolean());
         System.out.printf("informe a quantidade de computadores ");
         this.setQtd_computadores(cn.nextInt());
+        System.out.printf("informe o tipo de equipamento ");
+        this.setTipo_equipamento(cn2.nextLine());
         System.out.printf("informe a quantidade de equipamentos ");
         m = cn.nextInt();
         this.setQtd_equipametos(m);
-        for (int j=0; j<m; j++)
-        {
-            System.out.printf("informe o tipo de equipamento ");
-            equipList.add(cn.nextLine());
-        }
-        this.setTipos_equipamentos(equipList);
         this.criaDiretSala();
         this.Salvar();
         this.salvarLis();
