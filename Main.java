@@ -1,5 +1,12 @@
-package entities;
+package Aplication;
 
+import Entities.Disciplina;
+import Entities.Instituicao;
+import Entities.Laboratorio;
+import Entities.Ocupa;
+import Entities.Predio;
+import Entities.Sala;
+import Entities.Turma;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,8 +19,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import service.Aluno;
-import service.Professor;
+import Pessoa.Aluno;
+import Pessoa.Professor;
 
 public class Main // classe main auxiliar para mexer em elementos não estáticos
 {
