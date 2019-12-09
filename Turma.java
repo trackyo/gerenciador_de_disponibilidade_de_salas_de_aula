@@ -186,7 +186,7 @@ public class Turma
         return "Alteração feita";
     }
     
-    public Turma cadTurma(Disciplina D, Professor P, ArrayList<Sala> SalaLocal)//completar com as partes de alunos
+    public Turma cadTurma(Disciplina D, Professor P, ArrayList<Sala> SalaLocal, ArrayList<Ocupa> OcupaFora)//completar com as partes de alunos
     {
         int n, a=0;
         Sala sala;
@@ -209,29 +209,19 @@ public class Turma
         this.Salvar();
         for (int i=0; i<n; i++)
         {
-            do
+            Ocupa O = new Ocupa();
+            O.cadOcupa(this, SalaLocal);
+            if(!OcupaFora.contains(O))
             {
-              Ocupa O = new Ocupa();
-              O.cadOcupa(this, SalaLocal);
-              sala = O.cadOcupa(this, SalaLocal).getSala();
-              if(sala.getOcupa().contains(O.getDia()) && sala.getOcupa().contains(O.getHorario()))
-              {
-                System.out.printf("Ocupacao invalida ");   
-              }
-              else
-              {
-                
-                OcupaLocal.add(O.cadOcupa(this, SalaLocal));
-                O.cadOcupa(this, SalaLocal).criaDiretOcupaSala();
-                O.cadOcupa(this, SalaLocal).criaDiretOcupaTurma();
-                O.cadOcupa(this, SalaLocal).salvarNomeArq();
-                    //O.cadOcupa(this, SalaLocal).salvarLisSala();
-                    //O.cadOcupa(this, SalaLocal).salvarLisTurma();
-                O.cadOcupa(this, SalaLocal).Salvar();
-                a=42;
-              }
-              
-            }while(a<42);    
+                O.criaDiretOcupaSala();
+                O.criaDiretOcupaTurma();
+                O.salvarNomeArq();
+                O.Salvar();
+            }
+            else
+            {
+                System.out.printf("Ocupação inválida ");
+            }
         }
         return this;
     }

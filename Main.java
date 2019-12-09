@@ -174,7 +174,8 @@ public class Main // classe main auxiliar para mexer em elementos não estático
         LerArqInst();
         Scanner entrada = new Scanner(System.in);
 
-        do{//loop para repetir o menu até que o usuário queira sair
+        do
+        {//loop para repetir o menu até que o usuário queira sair
             menu();
             opcao = entrada.nextInt();
 
@@ -186,73 +187,45 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                 break;//volta pra dentro do laço do
 
             case 2://só pode ser usada depois da primeira execução de cadstro inst
-		if(InstFim.isEmpty())
+                if(!InstFim.isEmpty())
 		{
-			break;
-		}
-		else
-		{	    
-                cadastroPredio();//função que cadastra só pred => sala
-                break;//acho que será nescessário colocar uyma condição
-		}
-		
+                    cadastroPredio();//função que cadastra só pred => sala
+                    break;//acho que será nescessário colocar uyma condição
+                }
             case 3:
-		if(PredList.isEmpty())
-		{
-			break;
-		}
-		else
-		{	
-			cadastroSala();//função que cadastra apenas sala
-			break;
-		}
-
+                if(!PredLista.isEmpty())		
+                {
+                    cadastroSala();//função que cadastra apenas sala
+                    break;
+                }
             case 4:// só pode ser executada depois de cadastro Inst
-		if(SalaFim.isEmpty())
+                if(!SalaFim.isEmpty())
 		{
-			break;
-		}
-		else
-		{		    
-                cadastroProfessor();//função que cadastra professor
-                break;
-		}
-			    
+                    cadastroProfessor();//função que cadastra professor
+                    break;
+                }
             case 5://só pode ser executado depois de castro professor
-		if(ProfLista.isEmpty())
-		{
-			break;
-		}
-		else
-		{	
-			cadastroDiciplina();//cadastra Disciplina => Turma => Ocupação
-			break;
-		}
-                
+                if(!ProfLista.isEmpty())
+                {
+                    cadastroDiciplina();//cadastra Disciplina => Turma => Ocupação
+                    break;
+                }
             case 6://só pode ser executada se já tiver uma disciplina cadastrada
-		if(DiscFim.isEmpty())
-		{
-			break;
-		}
-		else
-		{	
-			cadastroTurma();//cadastra turm => Ocupação
-			break;
-		}
+                if (!DiscFim.isEmpty())
+                {
+                    cadastroTurma();//cadastra turm => Ocupação
+                    break;
+                }
             case 7://só pode ser executado depois que CadInst => cadProf => CadDisc
-		if(TurmaFim.isEmpty())
-		{
-			break;
-		}
-		else
-		{	
-			cadastroAluno();//cadastra um aluno e suas turmas
-			break;
-		}
+                if(!DiscFim.isEmpty())
+                {
+                    cadastroAluno();//cadastra um aluno e suas turmas
+                    break;
+                }
             default:
                 System.out.println("Opção inválida.");
             }
-        } while(opcao != 0); 
+        }while(opcao != 0); 
     }
     
     public Main()
@@ -403,10 +376,14 @@ public class Main // classe main auxiliar para mexer em elementos não estático
             {
                 if(prof.equals(ProfLista.get(j).getNome()))
                 {
-                    T.cadTurma(D, ProfLista.get(j), SalaFim);
+                    T.cadTurma(D, ProfLista.get(j), SalaFim, OcupaFim);
                     TurmaLocal.add(T);
                     TurmaFim.add(T);
                     ProfLista.get(j).setTurma(T);
+                    for(int x=0; x<T.getOcupacoes().size(); x++)
+                    {
+                        OcupaFim.add(T.getOcupacoes().get(x));
+                    }
                     for(int b=0; b<SalaFim.size(); b++)//sequencia de salos para instanciar cada turma em um cada campo das listas (não tenho certeza se essa parte está certa)
                     {
                         for(int c=0; c<T.getOcupacoes().size(); c++)
@@ -562,8 +539,12 @@ public class Main // classe main auxiliar para mexer em elementos não estático
                 {
                     if(Prof.equals(ProfLista.get(j).getNome()))
                     {
-                        DiscFim.get(i).getTurmas().add(T.cadTurma(DiscFim.get(i), ProfLista.get(j), SalaFim));//instancia a função cadTurma
+                        DiscFim.get(i).getTurmas().add(T.cadTurma(DiscFim.get(i), ProfLista.get(j), SalaFim, OcupaFim));//instancia a função cadTurma
                         TurmaFim.add(T);//adiciona na lista geral de turmas
+                        for(int x=0; x<T.getOcupacoes().size(); x++)
+                        {
+                            OcupaFim.add(T.getOcupacoes().get(x));
+                        }
                         for(int b=0; b<SalaFim.size(); b++)//for para adicio nar turma nas listas de turma(não sei se está totalmente correto)
                         {
                             for(int c=0; c<TurmaFim.get(TurmaFim.size()-1).getOcupacoes().size(); c++)

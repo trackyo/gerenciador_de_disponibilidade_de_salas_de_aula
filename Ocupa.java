@@ -58,7 +58,7 @@ public class Ocupa
     
     public void criaDiretOcupaSala()
     {
-        File Insti = new File("diretorio//inst//"+this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//"+Integer.toString(this.sala.getIdSala()), "ocupa");
+        File Insti = new File("diretorio//inst//"+this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//sala//"+Integer.toString(this.sala.getIdSala()), "ocupa");
         boolean jk = Insti.mkdir();
     }
     
@@ -74,7 +74,8 @@ public class Ocupa
         {
             FileWriter ltT = new FileWriter("diretorio//disc//"+this.turma.getDisciplina().getNome()+"//"+this.turma.getNome()+"//ocupa//lista.txt",true);
             PrintWriter pltT = new PrintWriter(ltT);
-            pltT.println(Integer.toString(this.getSala().getIdSala())+"_"+this.getDia()+"_"+Integer.toString(this.getHorario()));
+            
+            pltT.println(this.getTurma().getNome()+"_"+this.getDia()+"_"+Integer.toString(this.getHorario()));
             pltT.flush();
             pltT.close();
             ltT.close();
@@ -87,9 +88,9 @@ public class Ocupa
         
         try 
         {
-            FileWriter ltS = new FileWriter("diretorio//inst//"+this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//"+Integer.toString(this.sala.getIdSala())+"//ocupa//lista.txt",true);
+            FileWriter ltS = new FileWriter("diretorio//inst//"+this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//sala//"+Integer.toString(this.sala.getIdSala())+"//ocupa//lista.txt",true);
             PrintWriter pltS = new PrintWriter(ltS);
-            pltS.println(this.getTurma().getNome()+"_"+this.getDia()+"_"+Integer.toString(this.getHorario()));
+            pltS.println(Integer.toString(this.getSala().getIdSala())+"_"+this.getDia()+"_"+Integer.toString(this.getHorario()));
             pltS.flush();
             pltS.close();
             ltS.close();
@@ -167,7 +168,7 @@ public class Ocupa
         
         try 
         {
-            FileWriter fwS = new FileWriter("diretorio//inst"+this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//"+Integer.toString(this.sala.getIdSala())+"//ocupa//"+this.getTurma().getNome()+"_"+this.getDia()+"_"+Integer.toString(this.getHorario())+".txt",true);
+            FileWriter fwS = new FileWriter("diretorio//inst//"+this.sala.getPredio().getInstituicao().getNome()+"//"+this.sala.getPredio().getNome()+"//sala//"+Integer.toString(this.sala.getIdSala())+"//ocupa//"+this.getTurma().getNome()+"_"+this.getDia()+"_"+Integer.toString(this.getHorario())+".txt",true);
             PrintWriter pwS = new PrintWriter(fwS);
             pwS.println(this.turma.getNome());
             pwS.println(this.sala.getIdSala());
@@ -187,18 +188,18 @@ public class Ocupa
   
     public Ocupa cadOcupa(Turma T, ArrayList<Sala> SalaLocal)
     {
-        int a=0;
-        String s, pred;
+        int s, a=0;
+        String pred;
         Scanner cn = new Scanner(System.in);
         Scanner cn2 = new Scanner(System.in);
         this.setTurma(T);
         System.out.printf("informe o nome do predio ");
         pred = cn.nextLine();
         System.out.printf("informe o numero da sala ");
-        s = cn2.nextLine();
+        s = cn2.nextInt();
         for(int i=0; i<SalaLocal.size(); i++)//percorre a lista de salas recebida
         {
-            if(s.equals(SalaLocal.get(i).getIdSala()))//verifica se os nomes das salas são iguais
+            if(s == (SalaLocal.get(i).getIdSala()))//verifica se os nomes das salas são iguais
             {
                 if(pred.equals(SalaLocal.get(i).getPredio().getNome()))//verifica se o nome dos predios são iguais
                 {
@@ -207,9 +208,9 @@ public class Ocupa
             }
         }
         System.out.printf("informe o dia da semana ");
-        this.setDia(cn2.nextLine());
+        this.setDia(cn.nextLine());
         System.out.printf("informe informe o horário ");
-        this.setHorario(cn.nextInt());
+        this.setHorario(cn2.nextInt());
         return this;
     }
 }
